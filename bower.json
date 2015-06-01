@@ -1,0 +1,21 @@
+{
+  "name": "CSFrontExpress",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jmcollab/CSFrontExpress",
+  "authors": [
+    "Mitchell Valine <mitchellvaline@gmail.com>"
+  ],
+  "main": "./bin/www",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libraries/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "~3.3.4"
+  }
+}
