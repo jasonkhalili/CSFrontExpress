@@ -17,9 +17,17 @@ block content
           li.nav-link: a(href="3") Another Link
           li.nav-link: a(href="3") And Another
         ul.nav.navbar-nav.navbar-right
-          li: a#steam(href="/auth/steam")
-            i.fa.fa-steam
-            |Sign in through Steam
+          if !user
+            li
+              a#steam(href="/auth/steam")
+                i.fa.fa-steam
+                |Sign in through Steam
+          else
+            li
+              a#steam(href="#")
+                img(src="#{user.photos[0].value}")
+                |#{user.displayName}
+
 
   .container#pbar-container
     .row
