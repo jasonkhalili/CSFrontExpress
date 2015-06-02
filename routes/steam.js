@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 
 // GET /auth/steam
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -34,3 +35,5 @@ router.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+module.exports = router;

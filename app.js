@@ -9,6 +9,7 @@ var passport = require('passport');
 var SteamStrategy = require('passport-steam').Strategy;
 
 var routes = require('./routes/index');
+var steam = require('./routes/steam');
 
 var app = express();
 
@@ -66,6 +67,7 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/', steam);
 
 
 // error handlers
