@@ -28,5 +28,11 @@ block content
         p#numSkins 0 skins deposited
 
 
+  if user
+    p #{user.displayName}
+    p #{user.identifier}
+    p
+      img(src="#{user.photos[0].value}")
+
   #example
 
