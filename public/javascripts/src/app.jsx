@@ -4,6 +4,8 @@ var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascri
 var React = require('react');
 var HelloWorld = require('./HelloWorld.jsx');
 
+var Canvas = require('./canvas.jsx');
+
 React.render(
     <HelloWorld />,
     document.getElementById('example')

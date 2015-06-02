@@ -5,12 +5,14 @@ var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascri
 var React = require('react');
 var HelloWorld = require('./HelloWorld.jsx');
 
+var Canvas = require('./canvas.jsx');
+
 React.render(
     React.createElement(HelloWorld, null),
     document.getElementById('example')
 );
 
-},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":159,"../../libraries/jquery/dist/jquery":160,"./HelloWorld.jsx":158,"react":157}],2:[function(require,module,exports){
+},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":160,"../../libraries/jquery/dist/jquery":161,"./HelloWorld.jsx":158,"./canvas.jsx":159,"react":157}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -19832,6 +19834,36 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 },{"react":157}],159:[function(require,module,exports){
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+
+var value = 0; //Enter the amount of skins
+
+/*ctx.translate(0, 600); //Set origin to bottom right
+
+ ctx.fillStyle="#E9EAED";
+ ctx.fillRect(0,0, 200, -600);
+
+ /*var interval = window.setInterval(fillBar, 1000); *///Fills bar by 1 per second...doesn't stop
+
+var skinstext = document.getElementById("numSkins");
+function fillBar() {
+    ctx.fillStyle="#14a1ff";
+    ctx.fillRect(0, 0, value * 10, 200); //Up to 10 skins
+    if(i % 30 == 0)
+        skinstext.innerHTML = (i/30).toString() + " skins deposited";
+    if(i <= skins*30) {
+        i++;
+        value ++;
+    }
+    else
+        clearInterval(interval);
+};
+var i = 0;
+var skins = 10;
+var interval = window.setInterval(fillBar, 20);
+
+},{}],160:[function(require,module,exports){
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -22150,7 +22182,7 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-},{}],160:[function(require,module,exports){
+},{}],161:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
