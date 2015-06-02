@@ -1,18 +1,22 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// Libraries
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap');
-
 var React = require('react');
-var HelloWorld = require('./HelloWorld.jsx');
 
+// React Components
+var HelloWorld = require('./HelloWorld.jsx');
+var RoundBox = require('./RoundBox.jsx');
+
+// Additional Scripting
 var Canvas = require('./canvas.jsx');
 
 React.render(
-    React.createElement(HelloWorld, null),
-    document.getElementById('example')
+    React.createElement(RoundBox, {url: "http://localhost:3000/api/rounds", pollInterval: 2000}),
+    document.getElementById('main')
 );
 
-},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":160,"../../libraries/jquery/dist/jquery":161,"./HelloWorld.jsx":158,"./canvas.jsx":159,"react":157}],2:[function(require,module,exports){
+},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":161,"../../libraries/jquery/dist/jquery":162,"./HelloWorld.jsx":158,"./RoundBox.jsx":159,"./canvas.jsx":160,"react":157}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -19834,6 +19838,45 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 },{"react":157}],159:[function(require,module,exports){
+var React = require('react');
+var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+
+var roundsURL = 'http://localhost:3000/api/rounds';
+var usersURL = 'http://localhost:3000/api/users';
+
+var CurrentRound;
+
+var PlayersBox;
+
+module.exports =  React.createClass({displayName: "exports",
+    loadRoundsFromServer: function() {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            type: 'GET',
+            cache: false,
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this)
+        });
+    },
+    getInitialState: function() {
+        return {data: []};
+    },
+    componentDidMount: function() {
+        this.loadRoundsFromServer();
+        setInterval(this.loadRoundsFromServer, this.props.pollInterval);
+    },
+    render: function() {
+        return (
+            React.createElement("div", {className: "roundBox"}, 
+                this.state.data
+            )
+        );
+    }
+});
+
+},{"../../libraries/jquery/dist/jquery":162,"react":157}],160:[function(require,module,exports){
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -19863,7 +19906,7 @@ var i = 0;
 var skins = 10;
 var interval = window.setInterval(fillBar, 20);
 
-},{}],160:[function(require,module,exports){
+},{}],161:[function(require,module,exports){
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -22182,7 +22225,7 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-},{}],161:[function(require,module,exports){
+},{}],162:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
