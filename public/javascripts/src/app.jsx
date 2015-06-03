@@ -11,6 +11,6 @@ var RoundBox = require('./RoundBox.jsx');
 var Canvas = require('./canvas.jsx');
 
 React.render(
-    <RoundBox url="http://localhost:3000/api/rounds" pollInterval={2000} />,
+    <RoundBox />,
     document.getElementById('main')
 );
