@@ -1,6 +1,10 @@
 var React = require('react');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
+var Round = require('./Round.jsx');
+
+var roundsURL = 'http://localhost:3000/api/rounds';
+
 module.exports = React.createClass({
     loadRoundsFromServer: function() {
         $.ajax({
@@ -23,7 +27,8 @@ module.exports = React.createClass({
     render: function() {
         return (
             <div className="rounds">
-                {this.state.data}
+                <h1>Rounds Box</h1>
+                <Round data={this.state.data} />
             </div>
         );
     }

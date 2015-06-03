@@ -16,7 +16,7 @@ React.render(
     document.getElementById('main')
 );
 
-},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":162,"../../libraries/jquery/dist/jquery":163,"./HelloWorld.jsx":158,"./RoundBox.jsx":159,"./canvas.jsx":161,"react":157}],2:[function(require,module,exports){
+},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":163,"../../libraries/jquery/dist/jquery":164,"./HelloWorld.jsx":158,"./RoundBox.jsx":160,"./canvas.jsx":162,"react":157}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -19841,6 +19841,27 @@ module.exports = React.createClass({displayName: "exports",
 var React = require('react');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
+var React = require('react');
+var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+
+var Rounds = require('./Rounds.jsx');
+
+module.exports = React.createClass({displayName: "exports",
+    render: function() {
+        return (
+            React.createElement("ul", {className: "Round"}, 
+                this.props.data.map(function(round) {
+                    return React.createElement("li", {key: round.id}, round);
+                })
+            )
+        );
+    }
+});
+
+},{"../../libraries/jquery/dist/jquery":164,"./Rounds.jsx":161,"react":157}],160:[function(require,module,exports){
+var React = require('react');
+var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+
 var Rounds = require('./Rounds.jsx');
 
 module.exports =  React.createClass({displayName: "exports",
@@ -19853,9 +19874,13 @@ module.exports =  React.createClass({displayName: "exports",
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":163,"./Rounds.jsx":160,"react":157}],160:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":164,"./Rounds.jsx":161,"react":157}],161:[function(require,module,exports){
 var React = require('react');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+
+var Round = require('./Round.jsx');
+
+var roundsURL = 'http://localhost:3000/api/rounds';
 
 module.exports = React.createClass({displayName: "exports",
     loadRoundsFromServer: function() {
@@ -19879,13 +19904,14 @@ module.exports = React.createClass({displayName: "exports",
     render: function() {
         return (
             React.createElement("div", {className: "rounds"}, 
-                this.state.data
+                React.createElement("h1", null, "Rounds Box"), 
+                React.createElement(Round, {data: this.state.data})
             )
         );
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":163,"react":157}],161:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":164,"./Round.jsx":159,"react":157}],162:[function(require,module,exports){
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -19915,7 +19941,7 @@ var i = 0;
 var skins = 10;
 var interval = window.setInterval(fillBar, 20);
 
-},{}],162:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -22234,7 +22260,7 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-},{}],163:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
