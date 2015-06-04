@@ -1,9 +1,6 @@
 var React = require('react');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
-var React = require('react');
-var $ = jQuery = require('../../libraries/jquery/dist/jquery');
-
 var Rounds = require('./Rounds.jsx');
 
 module.exports = React.createClass({

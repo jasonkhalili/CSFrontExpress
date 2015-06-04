@@ -1,10 +1,8 @@
 var React = require('react');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
-var Round = require('./Round.jsx');
-
-module.exports = React.createClass({
-    loadRoundsFromServer: function() {
+module.exports =  React.createClass({
+    loadUserFromServer: function() {
         $.ajax({
             url: this.props.url,
             dataType: 'json',
@@ -20,14 +18,11 @@ module.exports = React.createClass({
     },
     componentDidMount: function() {
         this.loadRoundsFromServer();
-        setInterval(this.loadRoundsFromServer, this.props.pollInterval);
     },
     render: function() {
         return (
-            <div className="rounds">
-                <h1>Rounds Box</h1>
-                <Round data={this.state.data} />
-                <p>{user_data.id}</p>
+            <div className="user">
+                {this.state.data}
             </div>
         );
     }

@@ -19841,9 +19841,6 @@ module.exports = React.createClass({displayName: "exports",
 var React = require('react');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
-var React = require('react');
-var $ = jQuery = require('../../libraries/jquery/dist/jquery');
-
 var Rounds = require('./Rounds.jsx');
 
 module.exports = React.createClass({displayName: "exports",
@@ -19880,8 +19877,6 @@ var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
 var Round = require('./Round.jsx');
 
-var roundsURL = 'http://localhost:3000/api/rounds';
-
 module.exports = React.createClass({displayName: "exports",
     loadRoundsFromServer: function() {
         $.ajax({
@@ -19905,7 +19900,8 @@ module.exports = React.createClass({displayName: "exports",
         return (
             React.createElement("div", {className: "rounds"}, 
                 React.createElement("h1", null, "Rounds Box"), 
-                React.createElement(Round, {data: this.state.data})
+                React.createElement(Round, {data: this.state.data}), 
+                React.createElement("p", null, user_data.id)
             )
         );
     }
