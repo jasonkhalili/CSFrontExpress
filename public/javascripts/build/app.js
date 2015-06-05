@@ -13,8 +13,13 @@ var UserBox = require('./UserBox.jsx');
 var Canvas = require('./canvas.jsx');
 
 React.render(
-    React.createElement(UserBox, null),
+    React.createElement(RoundBox, null),
     document.getElementById('main')
+);
+
+React.render(
+    React.createElement(UserBox, null),
+    document.getElementById('user')
 );
 
 },{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":165,"../../libraries/jquery/dist/jquery":166,"./HelloWorld.jsx":158,"./RoundBox.jsx":160,"./UserBox.jsx":163,"./canvas.jsx":164,"react":157}],2:[function(require,module,exports){
@@ -19847,9 +19852,13 @@ var Rounds = require('./Rounds.jsx');
 module.exports = React.createClass({displayName: "exports",
     render: function() {
         return (
-            React.createElement("ul", {className: "Round"}, 
+            React.createElement("div", null, 
                 this.props.data.map(function(round) {
-                    return React.createElement("li", {key: round.id}, round);
+                    return (
+                        React.createElement("li", {key: round.id}, 
+                            round.game_id
+                        )
+                    );
                 })
             )
         );
@@ -19899,8 +19908,7 @@ module.exports = React.createClass({displayName: "exports",
     },
     render: function() {
         return (
-            React.createElement("div", {className: "Rounds"}, 
-                React.createElement("h1", null, "Rounds Box"), 
+            React.createElement("ul", {className: "Rounds"}, 
                 React.createElement(Round, {data: this.state.data})
             )
         );

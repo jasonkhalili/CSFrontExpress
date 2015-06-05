@@ -6,11 +6,15 @@ var Rounds = require('./Rounds.jsx');
 module.exports = React.createClass({
     render: function() {
         return (
-            <ul className="Round">
+            <div>
                 {this.props.data.map(function(round) {
-                    return <li key={round.id}>{round}</li>;
+                    return (
+                        <li key={round.id}>
+                            {round.game_id}
+                        </li>
+                    );
                 })}
-            </ul>
+            </div>
         );
     }
 });

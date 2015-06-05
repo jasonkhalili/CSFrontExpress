@@ -12,6 +12,11 @@ var UserBox = require('./UserBox.jsx');
 var Canvas = require('./canvas.jsx');
 
 React.render(
-    <UserBox />,
+    <RoundBox />,
     document.getElementById('main')
+);
+
+React.render(
+    <UserBox />,
+    document.getElementById('user')
 );
