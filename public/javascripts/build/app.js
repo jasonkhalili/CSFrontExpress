@@ -40,14 +40,18 @@ var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
 var Rounds = require('./Rounds.jsx');
 
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 module.exports = React.createClass({displayName: "exports",
     render: function() {
         return (
             React.createElement("div", null, 
                 this.props.data.map(function(round) {
                     return (
-                        React.createElement("li", {key: round.id}, 
-                            round.game_id
+                        React.createElement(ReactCSSTransitionGroup, {transitionName: "example", transitionAppear: true}, 
+                            React.createElement("li", {key: round.id}, 
+                                round.game_id
+                            )
                         )
                     );
                 })
@@ -58,18 +62,17 @@ module.exports = React.createClass({displayName: "exports",
 
 },{"../../libraries/jquery/dist/jquery":11,"../../libraries/react/react-with-addons.js":12,"./Rounds.jsx":5}],4:[function(require,module,exports){
 var React = require('../../libraries/react/react-with-addons.js');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
 var Rounds = require('./Rounds.jsx');
+
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 module.exports =  React.createClass({displayName: "exports",
     render: function() {
         return (
             React.createElement("div", {className: "roundBox"}, 
-                React.createElement(ReactCSSTransitionGroup, {transitionName: "example", transitionAppear: true}, 
-                    React.createElement(Rounds, {url: "http://localhost:3000/api/rounds", pollInterval: 2000})
-                )
+                React.createElement(Rounds, {url: "http://localhost:3000/api/rounds", pollInterval: 2000})
             )
 
         );
