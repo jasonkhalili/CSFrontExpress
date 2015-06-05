@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('../../libraries/react/react-with-addons.js')
 
 module.exports = React.createClass({
     render: function() {
