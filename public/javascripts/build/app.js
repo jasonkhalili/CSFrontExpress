@@ -2,21 +2,28 @@
 // Libraries
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap');
+var material = require('../../libraries/bootstrap-material-design/dist/js/material.min.js');
 var React = require('react');
 
 // React Components
 var HelloWorld = require('./HelloWorld.jsx');
 var RoundBox = require('./RoundBox.jsx');
+var UserBox = require('./UserBox.jsx');
 
 // Additional Scripting
 var Canvas = require('./canvas.jsx');
 
 React.render(
-    React.createElement(RoundBox, {url: "http://localhost:3000/api/rounds", pollInterval: 2000}),
+    React.createElement(RoundBox, null),
     document.getElementById('main')
 );
 
-},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":161,"../../libraries/jquery/dist/jquery":162,"./HelloWorld.jsx":158,"./RoundBox.jsx":159,"./canvas.jsx":160,"react":157}],2:[function(require,module,exports){
+React.render(
+    React.createElement(UserBox, null),
+    document.getElementById('user')
+);
+
+},{"../../libraries/bootstrap-material-design/dist/js/material.min.js":165,"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":166,"../../libraries/jquery/dist/jquery":167,"./HelloWorld.jsx":158,"./RoundBox.jsx":160,"./UserBox.jsx":163,"./canvas.jsx":164,"react":157}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -19841,14 +19848,47 @@ module.exports = React.createClass({displayName: "exports",
 var React = require('react');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
-var roundsURL = 'http://localhost:3000/api/rounds';
-var usersURL = 'http://localhost:3000/api/users';
+var Rounds = require('./Rounds.jsx');
 
-var CurrentRound;
+module.exports = React.createClass({displayName: "exports",
+    render: function() {
+        return (
+            React.createElement("div", null, 
+                this.props.data.map(function(round) {
+                    return (
+                        React.createElement("li", {key: round.id}, 
+                            round.game_id
+                        )
+                    );
+                })
+            )
+        );
+    }
+});
 
-var PlayersBox;
+},{"../../libraries/jquery/dist/jquery":167,"./Rounds.jsx":161,"react":157}],160:[function(require,module,exports){
+var React = require('react');
+var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+
+var Rounds = require('./Rounds.jsx');
 
 module.exports =  React.createClass({displayName: "exports",
+    render: function() {
+        return (
+            React.createElement("div", {className: "roundBox"}, 
+                React.createElement(Rounds, {url: "http://localhost:3000/api/rounds", pollInterval: 2000})
+            )
+        );
+    }
+});
+
+},{"../../libraries/jquery/dist/jquery":167,"./Rounds.jsx":161,"react":157}],161:[function(require,module,exports){
+var React = require('react');
+var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+
+var Round = require('./Round.jsx');
+
+module.exports = React.createClass({displayName: "exports",
     loadRoundsFromServer: function() {
         $.ajax({
             url: this.props.url,
@@ -19869,14 +19909,66 @@ module.exports =  React.createClass({displayName: "exports",
     },
     render: function() {
         return (
-            React.createElement("div", {className: "roundBox"}, 
-                this.state.data
+            React.createElement("ul", {className: "Rounds"}, 
+                React.createElement(Round, {data: this.state.data})
             )
         );
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":162,"react":157}],160:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":167,"./Round.jsx":159,"react":157}],162:[function(require,module,exports){
+var React = require('react');
+var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+
+module.exports =  React.createClass({displayName: "exports",
+    loadUserFromServer: function() {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            type: 'GET',
+            cache: false,
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this)
+        });
+    },
+    getInitialState: function() {
+        return {data: []};
+    },
+    componentDidMount: function() {
+        this.loadUserFromServer();
+        setInterval(this.loadUserFromServer, this.props.pollInterval);
+    },
+    render: function() {
+        return (
+            React.createElement("div", {className: "User"}, 
+                React.createElement("p", null, this.state.data)
+            )
+        );
+    }
+});
+
+},{"../../libraries/jquery/dist/jquery":167,"react":157}],163:[function(require,module,exports){
+var React = require('react');
+var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+
+var User = require('./User.jsx');
+
+
+module.exports = React.createClass({displayName: "exports",
+    render: function () {
+        var userURL = 'http://localhost:3000/api/users/' + String(user_data);
+        console.log(userURL);
+        return (
+            React.createElement("div", {className: "userBox"}, 
+                React.createElement(User, {url: userURL, pollInterval: 2000}), 
+                React.createElement("p", null, "test")
+            )
+        );
+    }
+});
+
+},{"../../libraries/jquery/dist/jquery":167,"./User.jsx":162,"react":157}],164:[function(require,module,exports){
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -19906,7 +19998,11 @@ var i = 0;
 var skins = 10;
 var interval = window.setInterval(fillBar, 20);
 
-},{}],161:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
+!function(a){function b(a){return"undefined"==typeof a.which?!0:"number"==typeof a.which&&a.which>0?!a.ctrlKey&&!a.metaKey&&!a.altKey&&8!=a.which&&9!=a.which:!1}a.expr[":"].notmdproc=function(b){return a(b).data("mdproc")?!1:!0},a.material={options:{input:!0,ripples:!0,checkbox:!0,togglebutton:!0,radio:!0,arrive:!0,autofill:!1,withRipples:[".btn:not(.btn-link)",".card-image",".navbar a:not(.withoutripple)",".dropdown-menu a",".nav-tabs a:not(.withoutripple)",".withripple"].join(","),inputElements:"input.form-control, textarea.form-control, select.form-control",checkboxElements:".checkbox > label > input[type=checkbox]",togglebuttonElements:".togglebutton > label > input[type=checkbox]",radioElements:".radio > label > input[type=radio]"},checkbox:function(b){a(b?b:this.options.checkboxElements).filter(":notmdproc").data("mdproc",!0).after("<span class=checkbox-material><span class=check></span></span>")},togglebutton:function(b){a(b?b:this.options.togglebuttonElements).filter(":notmdproc").data("mdproc",!0).after("<span class=toggle></span>")},radio:function(b){a(b?b:this.options.radioElements).filter(":notmdproc").data("mdproc",!0).after("<span class=circle></span><span class=check></span>")},input:function(c){a(c?c:this.options.inputElements).filter(":notmdproc").data("mdproc",!0).each(function(){var b=a(this);if(a(this).attr("data-hint")||b.hasClass("floating-label")){if(b.wrap("<div class=form-control-wrapper></div>"),b.after("<span class=material-input></span>"),b.hasClass("floating-label")){var c=b.attr("placeholder");b.attr("placeholder",null).removeClass("floating-label"),b.after("<div class=floating-label>"+c+"</div>")}if(b.attr("data-hint")&&b.after("<div class=hint>"+b.attr("data-hint")+"</div>"),(null===b.val()||"undefined"==b.val()||""===b.val())&&b.addClass("empty"),b.parent().next().is("[type=file]")){b.parent().addClass("fileinput");var d=b.parent().next().detach();b.after(d)}}}),a(document).on("change",".checkbox input[type=checkbox]",function(){a(this).blur()}).on("keydown paste",".form-control",function(c){b(c)&&a(this).removeClass("empty")}).on("keyup change",".form-control",function(){var b=a(this);""===b.val()&&"undefined"!=typeof b[0].checkValidity&&b[0].checkValidity()?b.addClass("empty"):b.removeClass("empty")}).on("focus",".form-control-wrapper.fileinput",function(){a(this).find("input").addClass("focus")}).on("blur",".form-control-wrapper.fileinput",function(){a(this).find("input").removeClass("focus")}).on("change",".form-control-wrapper.fileinput [type=file]",function(){var b="";a.each(a(this)[0].files,function(a,c){b+=c.name+", "}),b=b.substring(0,b.length-2),b?a(this).prev().removeClass("empty"):a(this).prev().addClass("empty"),a(this).prev().val(b)})},ripples:function(b){a(b?b:this.options.withRipples).ripples()},autofill:function(){var b=setInterval(function(){a("input[type!=checkbox]").each(function(){a(this).val()&&a(this).val()!==a(this).attr("value")&&a(this).trigger("change")})},100);setTimeout(function(){clearInterval(b)},1e4);var c;a(document).on("focus","input",function(){var b=a(this).parents("form").find("input").not("[type=file]");c=setInterval(function(){b.each(function(){a(this).val()!==a(this).attr("value")&&a(this).trigger("change")})},100)}).on("blur","input",function(){clearInterval(c)})},init:function(){a.fn.ripples&&this.options.ripples&&this.ripples(),this.options.input&&this.input(),this.options.checkbox&&this.checkbox(),this.options.togglebutton&&this.togglebutton(),this.options.radio&&this.radio(),this.options.autofill&&this.autofill(),document.arrive&&this.options.arrive&&(a.fn.ripples&&this.options.ripples&&a(document).arrive(this.options.withRipples,function(){a.material.ripples(a(this))}),this.options.input&&a(document).arrive(this.options.inputElements,function(){a.material.input(a(this))}),this.options.checkbox&&a(document).arrive(this.options.checkboxElements,function(){a.material.checkbox(a(this))}),this.options.radio&&a(document).arrive(this.options.radioElements,function(){a.material.radio(a(this))}),this.options.togglebutton&&a(document).arrive(this.options.togglebuttonElements,function(){a.material.togglebutton(a(this))}))}}}(jQuery);
+
+
+},{}],166:[function(require,module,exports){
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -22225,7 +22321,7 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-},{}],162:[function(require,module,exports){
+},{}],167:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
