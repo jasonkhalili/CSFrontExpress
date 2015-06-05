@@ -6,11 +6,12 @@ var React = require('react');
 // React Components
 var HelloWorld = require('./HelloWorld.jsx');
 var RoundBox = require('./RoundBox.jsx');
+var UserBox = require('./UserBox.jsx');
 
 // Additional Scripting
 var Canvas = require('./canvas.jsx');
 
 React.render(
-    <RoundBox />,
+    <UserBox />,
     document.getElementById('main')
 );

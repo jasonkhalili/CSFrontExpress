@@ -36,9 +36,8 @@ block content
         p#numSkins 0 skins deposited
 
   #main
-  #example
 
   if user
     script.
-      var user_data = !{JSON.stringify(user)}
+      var user_data = !{JSON.parse(user.id)}
 

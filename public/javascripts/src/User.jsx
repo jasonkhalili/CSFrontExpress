@@ -17,12 +17,13 @@ module.exports =  React.createClass({
         return {data: []};
     },
     componentDidMount: function() {
-        this.loadRoundsFromServer();
+        this.loadUserFromServer();
+        setInterval(this.loadUserFromServer, this.props.pollInterval);
     },
     render: function() {
         return (
-            <div className="user">
-                {this.state.data}
+            <div className="User">
+                <p>{this.state.data}</p>
             </div>
         );
     }

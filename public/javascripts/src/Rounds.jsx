@@ -24,10 +24,9 @@ module.exports = React.createClass({
     },
     render: function() {
         return (
-            <div className="rounds">
+            <div className="Rounds">
                 <h1>Rounds Box</h1>
                 <Round data={this.state.data} />
-                <p>{user_data.id}</p>
             </div>
         );
     }

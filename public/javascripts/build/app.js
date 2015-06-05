@@ -7,16 +7,17 @@ var React = require('react');
 // React Components
 var HelloWorld = require('./HelloWorld.jsx');
 var RoundBox = require('./RoundBox.jsx');
+var UserBox = require('./UserBox.jsx');
 
 // Additional Scripting
 var Canvas = require('./canvas.jsx');
 
 React.render(
-    React.createElement(RoundBox, null),
+    React.createElement(UserBox, null),
     document.getElementById('main')
 );
 
-},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":163,"../../libraries/jquery/dist/jquery":164,"./HelloWorld.jsx":158,"./RoundBox.jsx":160,"./canvas.jsx":162,"react":157}],2:[function(require,module,exports){
+},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":165,"../../libraries/jquery/dist/jquery":166,"./HelloWorld.jsx":158,"./RoundBox.jsx":160,"./UserBox.jsx":163,"./canvas.jsx":164,"react":157}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -19855,7 +19856,7 @@ module.exports = React.createClass({displayName: "exports",
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":164,"./Rounds.jsx":161,"react":157}],160:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":166,"./Rounds.jsx":161,"react":157}],160:[function(require,module,exports){
 var React = require('react');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
@@ -19871,7 +19872,7 @@ module.exports =  React.createClass({displayName: "exports",
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":164,"./Rounds.jsx":161,"react":157}],161:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":166,"./Rounds.jsx":161,"react":157}],161:[function(require,module,exports){
 var React = require('react');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
@@ -19898,16 +19899,67 @@ module.exports = React.createClass({displayName: "exports",
     },
     render: function() {
         return (
-            React.createElement("div", {className: "rounds"}, 
+            React.createElement("div", {className: "Rounds"}, 
                 React.createElement("h1", null, "Rounds Box"), 
-                React.createElement(Round, {data: this.state.data}), 
-                React.createElement("p", null, user_data.id)
+                React.createElement(Round, {data: this.state.data})
             )
         );
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":164,"./Round.jsx":159,"react":157}],162:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":166,"./Round.jsx":159,"react":157}],162:[function(require,module,exports){
+var React = require('react');
+var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+
+module.exports =  React.createClass({displayName: "exports",
+    loadUserFromServer: function() {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            type: 'GET',
+            cache: false,
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this)
+        });
+    },
+    getInitialState: function() {
+        return {data: []};
+    },
+    componentDidMount: function() {
+        this.loadUserFromServer();
+        setInterval(this.loadUserFromServer, this.props.pollInterval);
+    },
+    render: function() {
+        return (
+            React.createElement("div", {className: "User"}, 
+                React.createElement("p", null, this.state.data)
+            )
+        );
+    }
+});
+
+},{"../../libraries/jquery/dist/jquery":166,"react":157}],163:[function(require,module,exports){
+var React = require('react');
+var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+
+var User = require('./User.jsx');
+
+
+module.exports = React.createClass({displayName: "exports",
+    render: function () {
+        var userURL = 'http://localhost:3000/api/users/' + String(user_data);
+        console.log(userURL);
+        return (
+            React.createElement("div", {className: "userBox"}, 
+                React.createElement(User, {url: userURL, pollInterval: 2000}), 
+                React.createElement("p", null, "test")
+            )
+        );
+    }
+});
+
+},{"../../libraries/jquery/dist/jquery":166,"./User.jsx":162,"react":157}],164:[function(require,module,exports){
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -19937,7 +19989,7 @@ var i = 0;
 var skins = 10;
 var interval = window.setInterval(fillBar, 20);
 
-},{}],163:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -22256,7 +22308,7 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-},{}],164:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/

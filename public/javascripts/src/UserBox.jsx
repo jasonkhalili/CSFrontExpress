@@ -5,15 +5,13 @@ var User = require('./User.jsx');
 
 
 module.exports = React.createClass({
-    getURL: function() {
-    }
-    getInitialState: function() {
-        return {userURL: ""};
-    },
     render: function () {
+        var userURL = 'http://localhost:3000/api/users/' + String(user_data);
+        console.log(userURL);
         return (
             <div className="userBox">
-                <User url={this.props.userURL} />
+                <User url={userURL} pollInterval={2000} />
+                <p>test</p>
             </div>
         );
     }
