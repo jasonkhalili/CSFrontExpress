@@ -1,6 +1,7 @@
 // Libraries
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap');
+var material = require('../../libraries/bootstrap-material-design2/dist/js/material.min.js');
 var React = require('react');
 
 // React Components
