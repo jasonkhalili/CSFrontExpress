@@ -2,13 +2,18 @@ doctype html
 html
   head
     title= title
-    // Google Fonts
-    //- link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Hind:600,700,400,500')
-    // Bootstrap theme
-    //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/simplex/bootstrap.min.css')
+    // Font Awesome CDN Steam Icon
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
     // Compiled CSS
     link(rel='stylesheet', href='/stylesheets/css/style.css')
+    // Material
+    link(rel='stylesheet', href='/libraries/bootstrap-material-design/dist/css/roboto.css')
+    link(rel='stylesheet', href='/libraries/bootstrap-material-design/dist/css/material-fullpalette.css')
+    link(rel='stylesheet', href='/libraries/bootstrap-material-design/dist/css/ripples.css')
   body
     block content
+
+
     script(src='/javascripts/build/app.js')
+    script(src='/libraries/bootstrap-material-design/dist/js/material.min.js')
+    script(src='/libraries/bootstrap-material-design/dist/js/ripples.min.js')
