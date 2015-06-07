@@ -1,6 +1,13 @@
 var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
+var userPost = [
+{steam_id: {user_data},
+join_date: null,
+game_history: {
+    test: "test1"
+}}];
+
 module.exports =  React.createClass({
     loadUserFromServer: function() {
         $.ajax({
@@ -18,6 +25,14 @@ module.exports =  React.createClass({
     },
     componentDidMount: function() {
         this.loadUserFromServer();
+        console.log(this.state.data);
+        console.log(userPost);
+        $.ajax({
+            url: 'http://localhost:3000/api/users',
+            dataType: 'json',
+            type: 'POST',
+            data: userPost,
+        });
         setInterval(this.loadUserFromServer, this.props.pollInterval);
     },
     render: function() {

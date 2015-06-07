@@ -117,6 +117,13 @@ module.exports = React.createClass({displayName: "exports",
 var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
+var userPost = [
+{steam_id: {user_data},
+join_date: null,
+game_history: {
+    test: "test1"
+}}];
+
 module.exports =  React.createClass({displayName: "exports",
     loadUserFromServer: function() {
         $.ajax({
@@ -134,6 +141,14 @@ module.exports =  React.createClass({displayName: "exports",
     },
     componentDidMount: function() {
         this.loadUserFromServer();
+        console.log(this.state.data);
+        console.log(userPost);
+        $.ajax({
+            url: 'http://localhost:3000/api/users',
+            dataType: 'json',
+            type: 'POST',
+            data: userPost,
+        });
         setInterval(this.loadUserFromServer, this.props.pollInterval);
     },
     render: function() {
@@ -155,7 +170,6 @@ var User = require('./User.jsx');
 module.exports = React.createClass({displayName: "exports",
     render: function () {
         var userURL = 'http://localhost:3000/api/users/' + String(user_data);
-        console.log(userURL);
         return (
             React.createElement("div", {className: "userBox"}, 
                 React.createElement(User, {url: userURL, pollInterval: 2000}), 
