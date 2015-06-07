@@ -40,5 +40,7 @@ block content
 
   if user
     script.
-      var user_data = !{JSON.parse(user.id)}
+      if(user.id) {
+        var user_id = !{JSON.parse(user.id)}
+      }
 

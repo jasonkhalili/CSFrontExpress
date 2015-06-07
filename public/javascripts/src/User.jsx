@@ -2,7 +2,7 @@ var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
 var userPost = [
-{steam_id: {user_data},
+{steam_id: {user_id},
 join_date: null,
 game_history: {
     test: "test1"
