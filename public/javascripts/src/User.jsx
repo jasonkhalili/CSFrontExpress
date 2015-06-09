@@ -18,26 +18,27 @@ module.exports =  React.createClass({
             type: 'GET',
             cache: false,
             success: function(data) {
+                if(!data.length){
+                    console.log("in if");
+                    this.handleAddUser();
+                }
                 this.setState({data: data});
             }.bind(this)
         });
     },
     handleAddUser: function() {
-        console.log(this.state.data);
-        if(this.state.data = []){
-            $.ajax({
-                url: 'http://localhost:3000/api/users',
-                dataType: 'json',
-                type: 'POST',
-                data: userPost,
-            });
-        }
+        console.log("in add");
+        $.ajax({
+            url: 'http://localhost:3000/api/users',
+            dataType: 'json',
+            type: 'POST',
+            data: userPost,
+        });
     },
     getInitialState: function() {
         return {data: []};
     },
     componentDidMount: function() {
-        this.handleAddUser();
         setInterval(this.loadUserFromServer, this.props.pollInterval);
     },
     render: function() {

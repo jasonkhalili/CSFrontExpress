@@ -134,26 +134,27 @@ module.exports =  React.createClass({displayName: "exports",
             type: 'GET',
             cache: false,
             success: function(data) {
+                if(!data.length){
+                    console.log("in if");
+                    this.handleAddUser();
+                }
                 this.setState({data: data});
             }.bind(this)
         });
     },
     handleAddUser: function() {
-        console.log(this.state.data);
-        if(this.state.data = []){
-            $.ajax({
-                url: 'http://localhost:3000/api/users',
-                dataType: 'json',
-                type: 'POST',
-                data: userPost,
-            });
-        }
+        console.log("in add");
+        $.ajax({
+            url: 'http://localhost:3000/api/users',
+            dataType: 'json',
+            type: 'POST',
+            data: userPost,
+        });
     },
     getInitialState: function() {
         return {data: []};
     },
     componentDidMount: function() {
-        this.handleAddUser();
         setInterval(this.loadUserFromServer, this.props.pollInterval);
     },
     render: function() {
@@ -177,8 +178,7 @@ module.exports = React.createClass({displayName: "exports",
         var userURL = 'http://localhost:3000/api/users/' + String(user_id);
         return (
             React.createElement("div", {className: "userBox"}, 
-                React.createElement(User, {url: userURL, pollInterval: 2000}), 
-                React.createElement("p", null, "test")
+                React.createElement(User, {url: userURL, pollInterval: 2000})
             )
         );
     }

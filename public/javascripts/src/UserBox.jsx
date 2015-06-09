@@ -10,7 +10,6 @@ module.exports = React.createClass({
         return (
             <div className="userBox">
                 <User url={userURL} pollInterval={2000} />
-                <p>test</p>
             </div>
         );
     }
