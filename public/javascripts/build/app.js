@@ -1,4 +1,29 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// Libraries
+var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap');
+
+var React = require('../../libraries/react/react-with-addons.js');
+
+// React Components
+var HelloWorld = require('./HelloWorld.jsx');
+var RoundBox = require('./RoundBox.jsx');
+var UserBox = require('./UserBox.jsx');
+
+// Additional Scripting
+var Canvas = require('./canvas.jsx');
+
+React.render(
+    React.createElement(RoundBox, null),
+    document.getElementById('main')
+);
+
+React.render(
+    React.createElement(UserBox, null),
+    document.getElementById('user')
+);
+
+},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":9,"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11,"./HelloWorld.jsx":2,"./RoundBox.jsx":4,"./UserBox.jsx":7,"./canvas.jsx":8}],2:[function(require,module,exports){
 var React = require('../../libraries/react/react-with-addons.js')
 
 module.exports = React.createClass({displayName: "exports",
@@ -9,7 +34,7 @@ module.exports = React.createClass({displayName: "exports",
     }
 });
 
-},{"../../libraries/react/react-with-addons.js":11}],2:[function(require,module,exports){
+},{"../../libraries/react/react-with-addons.js":11}],3:[function(require,module,exports){
 var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
@@ -35,7 +60,7 @@ module.exports = React.createClass({displayName: "exports",
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11,"./Rounds.jsx":4}],3:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11,"./Rounds.jsx":5}],4:[function(require,module,exports){
 var React = require('../../libraries/react/react-with-addons.js');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
@@ -54,7 +79,7 @@ module.exports =  React.createClass({displayName: "exports",
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11,"./Rounds.jsx":4}],4:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11,"./Rounds.jsx":5}],5:[function(require,module,exports){
 var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
@@ -88,16 +113,18 @@ module.exports = React.createClass({displayName: "exports",
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11,"./Round.jsx":2}],5:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11,"./Round.jsx":3}],6:[function(require,module,exports){
 var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
-var userPost = [
-{steam_id: {user_id},
-join_date: null,
-game_history: {
-    test: "test1"
-}}];
+
+var today = new Date();
+var userPost = 
+{"steam_id": user_id,
+"join_date": today.toDateString(),
+"game_history": {
+    "test": "test1"
+}};
 
 module.exports =  React.createClass({displayName: "exports",
     loadUserFromServer: function() {
@@ -111,19 +138,22 @@ module.exports =  React.createClass({displayName: "exports",
             }.bind(this)
         });
     },
+    handleAddUser: function() {
+        console.log(this.state.data);
+        if(this.state.data = []){
+            $.ajax({
+                url: 'http://localhost:3000/api/users',
+                dataType: 'json',
+                type: 'POST',
+                data: userPost,
+            });
+        }
+    },
     getInitialState: function() {
         return {data: []};
     },
     componentDidMount: function() {
-        this.loadUserFromServer();
-        console.log(this.state.data);
-        console.log(userPost);
-        $.ajax({
-            url: 'http://localhost:3000/api/users',
-            dataType: 'json',
-            type: 'POST',
-            data: userPost,
-        });
+        this.handleAddUser();
         setInterval(this.loadUserFromServer, this.props.pollInterval);
     },
     render: function() {
@@ -135,7 +165,7 @@ module.exports =  React.createClass({displayName: "exports",
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11}],6:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11}],7:[function(require,module,exports){
 var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
@@ -154,32 +184,7 @@ module.exports = React.createClass({displayName: "exports",
     }
 });
 
-},{"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11,"./User.jsx":5}],7:[function(require,module,exports){
-// Libraries
-var $ = jQuery = require('../../libraries/jquery/dist/jquery');
-var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap');
-
-var React = require('../../libraries/react/react-with-addons.js');
-
-// React Components
-var HelloWorld = require('./HelloWorld.jsx');
-var RoundBox = require('./RoundBox.jsx');
-var UserBox = require('./UserBox.jsx');
-
-// Additional Scripting
-var Canvas = require('./canvas.jsx');
-
-React.render(
-    React.createElement(RoundBox, null),
-    document.getElementById('main')
-);
-
-React.render(
-    React.createElement(UserBox, null),
-    document.getElementById('user')
-);
-
-},{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":9,"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11,"./HelloWorld.jsx":1,"./RoundBox.jsx":3,"./UserBox.jsx":6,"./canvas.jsx":8}],8:[function(require,module,exports){
+},{"../../libraries/jquery/dist/jquery":10,"../../libraries/react/react-with-addons.js":11,"./User.jsx":6}],8:[function(require,module,exports){
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
@@ -33386,4 +33391,4 @@ module.exports = warning;
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[7]);
+},{}]},{},[1]);
