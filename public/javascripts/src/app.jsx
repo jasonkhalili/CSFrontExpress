@@ -8,6 +8,7 @@ var React = require('../../libraries/react/react-with-addons.js');
 var HelloWorld = require('./HelloWorld.jsx');
 var RoundBox = require('./RoundBox.jsx');
 var UserBox = require('./UserBox.jsx');
+var InventoryBox = require('./InventoryBox.jsx');
 
 // Additional Scripting
 var Canvas = require('./canvas.jsx');
