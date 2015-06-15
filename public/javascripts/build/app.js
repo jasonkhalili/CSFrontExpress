@@ -19,9 +19,17 @@ React.render(
     document.getElementById('main')
 );
 
+
+if(typeof user_id !== 'undefined') {
+    React.render(
+        React.createElement(UserBox, null),
+        document.getElementById('user')
+    );
+}
+
 React.render(
-    React.createElement(UserBox, null),
-    document.getElementById('user')
+    React.createElement(InventoryBox, null),
+    document.getElementById('inventory')
 );
 
 },{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":361,"../../libraries/jquery/dist/jquery":362,"../../libraries/react/react-with-addons.js":363,"./HelloWorld.jsx":353,"./InventoryBox.jsx":354,"./RoundBox.jsx":356,"./UserBox.jsx":359,"./canvas.jsx":360}],2:[function(require,module,exports){
@@ -69546,6 +69554,19 @@ var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
 var SteamTradeOffers = require('steam-tradeoffers');
 
+var offers = new SteamTradeOffers();
+
+module.exports =  React.createClass({displayName: "exports",
+    render: function() {
+        console.log(offers);
+        return (
+            React.createElement("div", {className: "inventoryBox"}, 
+                React.createElement("p", null, "test")
+            )
+        );
+    }
+})
+
 },{"../../libraries/jquery/dist/jquery":362,"../../libraries/react/react-with-addons.js":363,"steam-tradeoffers":193}],355:[function(require,module,exports){
 var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
@@ -69629,15 +69650,6 @@ module.exports = React.createClass({displayName: "exports",
 var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
-
-var today = new Date();
-var userPost = 
-{"steam_id": user_id,
-"join_date": today.toDateString(),
-"game_history": {
-    "test": "test1"
-}};
-
 module.exports =  React.createClass({displayName: "exports",
     loadUserFromServer: function() {
         $.ajax({
@@ -69656,6 +69668,13 @@ module.exports =  React.createClass({displayName: "exports",
     },
     handleAddUser: function() {
         console.log("in add");
+        var today = new Date();
+        var userPost =
+            {"steam_id": user_id,
+                "join_date": today.toDateString(),
+                "game_history": {
+                    "test": "test1"
+                }};
         $.ajax({
             url: 'http://localhost:3000/api/users',
             dataType: 'json',

@@ -1,15 +1,6 @@
 var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
-
-var today = new Date();
-var userPost = 
-{"steam_id": user_id,
-"join_date": today.toDateString(),
-"game_history": {
-    "test": "test1"
-}};
-
 module.exports =  React.createClass({
     loadUserFromServer: function() {
         $.ajax({
@@ -28,6 +19,13 @@ module.exports =  React.createClass({
     },
     handleAddUser: function() {
         console.log("in add");
+        var today = new Date();
+        var userPost =
+            {"steam_id": user_id,
+                "join_date": today.toDateString(),
+                "game_history": {
+                    "test": "test1"
+                }};
         $.ajax({
             url: 'http://localhost:3000/api/users',
             dataType: 'json',

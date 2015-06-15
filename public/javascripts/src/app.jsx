@@ -18,7 +18,15 @@ React.render(
     document.getElementById('main')
 );
 
+
+if(typeof user_id !== 'undefined') {
+    React.render(
+        <UserBox />,
+        document.getElementById('user')
+    );
+}
+
 React.render(
-    <UserBox />,
-    document.getElementById('user')
+    <InventoryBox />,
+    document.getElementById('inventory')
 );
