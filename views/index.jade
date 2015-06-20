@@ -24,7 +24,7 @@ block content
                 |Sign in through Steam
           else
             li
-              a#steam(href="#")
+              a#steam(target = "_blank" href="https://steamcommunity.com/tradeoffer/new/?partner=273281604&token=pkDxy0cw")
                 img(src="#{user.photos[0].value}")
                 |#{user.displayName}
                 #user
@@ -45,4 +45,3 @@ block content
       if(user.id) {
         var user_id = !{JSON.parse(user.id)}
       }
-
