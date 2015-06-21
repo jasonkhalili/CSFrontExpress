@@ -15,7 +15,7 @@ block content
         ul.nav.navbar-nav.navbar-right
           li.nav-link: a(href="#") Home
           li.nav-link: a(href="#") About
-          li.nav-link: a(href="#") FAQ
+          li.nav-link: a(href="") Deposit
           if !user
             li.nav-link
               a#steam(href="/auth/steam")
@@ -32,6 +32,7 @@ block content
   #inventory
 
   if user
+    |Steam ID: #{user.id}
     script.
       if(user.id) {
         var user_id = !{JSON.parse(user.id)}
