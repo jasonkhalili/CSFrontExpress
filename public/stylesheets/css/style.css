@@ -5983,21 +5983,22 @@ button.close {
   background-color: #999; }
 
 @media (min-width: 768px) {
-  .nav-link, .nav-link > a {
+  .nav-link,
+  .nav-link > a {
     height: 100% !important; } }
 
 #nav {
-  background: #ffffff;
+  background: #fff;
   margin-bottom: 30px; }
 
 .nav-link > a {
   font-size: 17px;
   color: #34495e !important;
-  webkit-transition: .30s ease-in-out;
-  transition: .30s ease-in-out; }
+  webkit-transition: 0.30s ease-in-out;
+  transition: 0.30s ease-in-out; }
 
 .nav-link > a:hover {
-  color: #39D1B4 !important; }
+  color: #39d1b4 !important; }
 
 .navbar .navbar-collapse {
   text-align: center; }
@@ -6027,7 +6028,7 @@ canvas {
 .skin-image {
   width: 150px;
   height: 150px;
-  margin: -20px 30px 0 30px; }
+  margin: -20px 30px 0; }
 
 .skin-name {
   text-align: center;
@@ -6036,7 +6037,8 @@ canvas {
 .deposited-picture {
   float: left; }
 
-.row-picture, .row-picture > .circle {
+.row-picture,
+.row-picture > .circle {
   width: 45px !important;
   height: 45px !important; }
 
@@ -6060,7 +6062,7 @@ canvas {
   background: #2dbfa2; }
 
 #pbar-info {
-  color: #14A1FF;
+  color: #14a1ff;
   text-align: center; }
 
 #num-skins {

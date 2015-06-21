@@ -39,7 +39,7 @@ passport.use(new SteamStrategy({
   },
   function(identifier, profile, done) {
     // asynchronous verification, for effect...
-    process.nextTick(function () {
+    process.nextTick(function() {
 
       // To keep the example simple, the user's Steam profile is returned to
       // represent the logged-in user.  In a typical application, you would want
@@ -59,9 +59,13 @@ app.set('view engine', 'jade');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
-app.use(session({ secret: 'keyboard cat' }));
+app.use(session({
+  secret: 'keyboard cat'
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));

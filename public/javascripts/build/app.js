@@ -15,32 +15,32 @@ var InventoryBox = require('./InventoryBox.jsx');
 var Canvas = require('./canvas.jsx');
 
 React.render(
-    React.createElement(RoundBox, null),
-    document.getElementById('main')
+  React.createElement(RoundBox, null),
+  document.getElementById('main')
 );
 
 
 if(typeof user_id !== 'undefined') {
-    React.render(
-        React.createElement(UserBox, null),
-        document.getElementById('user')
-    );
+  React.render(
+    React.createElement(UserBox, null),
+    document.getElementById('user')
+  );
 }
 
 React.render(
-    React.createElement(InventoryBox, null),
-    document.getElementById('inventory')
+  React.createElement(InventoryBox, null),
+  document.getElementById('inventory')
 );
 
 },{"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":10,"../../libraries/jquery/dist/jquery":11,"../../libraries/react/react-with-addons.js":12,"./HelloWorld.jsx":2,"./InventoryBox.jsx":3,"./RoundBox.jsx":5,"./UserBox.jsx":8,"./canvas.jsx":9}],2:[function(require,module,exports){
 var React = require('../../libraries/react/react-with-addons.js')
 
 module.exports = React.createClass({displayName: "exports",
-    render: function() {
-        return (
-            React.createElement("h1", null, "Hello, world from a React.js Component!")
-        )
-    }
+  render: function() {
+    return (
+      React.createElement("h1", null, "Hello, world from a React.js Component!")
+    )
+  }
 });
 
 },{"../../libraries/react/react-with-addons.js":12}],3:[function(require,module,exports){
@@ -48,30 +48,30 @@ var React = require('../../libraries/react/react-with-addons.js');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
 module.exports =  React.createClass({displayName: "exports",
-    loadInventoryFromServer: function() {
-        $.ajax({
-            url: inventoryURL,
-            dataType: 'json',
-            type: 'GET',
-            cache: false,
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this)
-        });
-    },
-    getInitialState: function() {
-        return {data: []};
-    },
-    componentDidMount: function() {
-        this.loadInventoryFromServer();
-    },
-    render: function() {
-        return (
-            React.createElement("div", {className: "inventoryBox"}, 
-                React.createElement("p", null, this.state.data)
-            )
-        );
-    }
+  loadInventoryFromServer: function() {
+    $.ajax({
+      url: inventoryURL,
+      dataType: 'json',
+      type: 'GET',
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this)
+    });
+  },
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    this.loadInventoryFromServer();
+  },
+  render: function() {
+    return (
+      React.createElement("div", {className: "inventoryBox"}, 
+        React.createElement("p", null, this.state.data)
+      )
+    );
+  }
 });
 
 },{"../../libraries/jquery/dist/jquery":11,"../../libraries/react/react-with-addons.js":12}],4:[function(require,module,exports){
@@ -83,21 +83,21 @@ var Rounds = require('./Rounds.jsx');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 module.exports = React.createClass({displayName: "exports",
-    render: function() {
-        return (
-            React.createElement("div", null, 
-                this.props.data.map(function(round) {
-                    return (
-                        React.createElement(ReactCSSTransitionGroup, {transitionName: "example", transitionAppear: true}, 
-                            React.createElement("li", {key: round.id}, 
-                                round.game_id
-                            )
-                        )
-                    );
-                })
+  render: function() {
+    return (
+      React.createElement("div", null, 
+        this.props.data.map(function(round) {
+          return (
+            React.createElement(ReactCSSTransitionGroup, {transitionName: "example", transitionAppear: true}, 
+              React.createElement("li", {key: round.id}, 
+                round.game_id
+              )
             )
-        );
-    }
+          );
+        })
+      )
+    );
+  }
 });
 
 },{"../../libraries/jquery/dist/jquery":11,"../../libraries/react/react-with-addons.js":12,"./Rounds.jsx":6}],5:[function(require,module,exports){
@@ -108,15 +108,15 @@ var Rounds = require('./Rounds.jsx');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-module.exports =  React.createClass({displayName: "exports",
-    render: function() {
-        return (
-            React.createElement("div", {className: "roundBox"}, 
-                React.createElement(Rounds, {url: "http://localhost:3000/api/rounds", pollInterval: 2000})
-            )
+module.exports = React.createClass({displayName: "exports",
+  render: function () {
+    return (
+      React.createElement("div", {className: "roundBox"}, 
+        React.createElement(Rounds, {pollInterval: 2000, url: "http://localhost:3000/api/rounds"})
+      )
 
-        );
-    }
+    );
+  }
 });
 
 },{"../../libraries/jquery/dist/jquery":11,"../../libraries/react/react-with-addons.js":12,"./Rounds.jsx":6}],6:[function(require,module,exports){
@@ -126,31 +126,35 @@ var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 var Round = require('./Round.jsx');
 
 module.exports = React.createClass({displayName: "exports",
-    loadRoundsFromServer: function() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            type: 'GET',
-            cache: false,
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this)
+  loadRoundsFromServer: function () {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'GET',
+      cache: false,
+      success: function (data) {
+        this.setState({
+          data: data
         });
-    },
-    getInitialState: function() {
-        return {data: []};
-    },
-    componentDidMount: function() {
-        this.loadRoundsFromServer();
-        setInterval(this.loadRoundsFromServer, this.props.pollInterval);
-    },
-    render: function() {
-        return (
-            React.createElement("ul", {className: "Rounds"}, 
-                React.createElement(Round, {data: this.state.data})
-            )
-        );
-    }
+      }.bind(this)
+    });
+  },
+  getInitialState: function () {
+    return {
+      data: []
+    };
+  },
+  componentDidMount: function () {
+    this.loadRoundsFromServer();
+    setInterval(this.loadRoundsFromServer, this.props.pollInterval);
+  },
+  render: function () {
+    return (
+      React.createElement("ul", {className: "Rounds"}, 
+        React.createElement(Round, {data: this.state.data})
+      )
+    );
+  }
 });
 
 },{"../../libraries/jquery/dist/jquery":11,"../../libraries/react/react-with-addons.js":12,"./Round.jsx":4}],7:[function(require,module,exports){
@@ -158,51 +162,51 @@ var React = require('../../libraries/react/react-with-addons.js')
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
 module.exports =  React.createClass({displayName: "exports",
-    loadUserFromServer: function() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            type: 'GET',
-            cache: false,
-            success: function(data) {
-                if(!data.length){
-                    console.log("in if");
-                    this.handleAddUser();
-                }
-                this.setState({data: data});
-            }.bind(this)
-        });
-    },
-    handleAddUser: function() {
-        console.log("in add");
-        var today = new Date();
-        var userPost =
-            {"steam_id": user_id,
-                "join_date": today.toDateString(),
-                "game_history": {
-                    "test": "test1"
-                }};
-        $.ajax({
-            url: 'http://localhost:3000/api/users',
-            dataType: 'json',
-            type: 'POST',
-            data: userPost,
-        });
+  loadUserFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'GET',
+      cache: false,
+      success: function(data) {
+        if(!data.length){
+          console.log("in if");
+          this.handleAddUser();
+        }
+        this.setState({data: data});
+      }.bind(this)
+    });
+  },
+  handleAddUser: function() {
+    console.log("in add");
+    var today = new Date();
+    var userPost =
+    {"steam_id": user_id,
+      "join_date": today.toDateString(),
+      "game_history": {
+        "test": "test1"
+      }};
+      $.ajax({
+        url: 'http://localhost:3000/api/users',
+        dataType: 'json',
+        type: 'POST',
+        data: userPost,
+      });
     },
     getInitialState: function() {
-        return {data: []};
+      return {data: []};
     },
     componentDidMount: function() {
-        setInterval(this.loadUserFromServer, this.props.pollInterval);
+      setInterval(this.loadUserFromServer, this.props.pollInterval);
     },
     render: function() {
-        return (
-            React.createElement("div", {className: "User"}, 
-                React.createElement("p", null, this.state.data)
-            )
-        );
+      return (
+        React.createElement("div", {className: "User"}, 
+          React.createElement("p", null, this.state.data)
+        )
+      );
     }
-});
+  });
 
 },{"../../libraries/jquery/dist/jquery":11,"../../libraries/react/react-with-addons.js":12}],8:[function(require,module,exports){
 var React = require('../../libraries/react/react-with-addons.js')
@@ -210,16 +214,15 @@ var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
 var User = require('./User.jsx');
 
-
 module.exports = React.createClass({displayName: "exports",
-    render: function () {
-        var userURL = 'http://localhost:3000/api/users/' + String(user_id);
-        return (
-            React.createElement("div", {className: "userBox"}, 
-                React.createElement(User, {url: userURL, pollInterval: 2000})
-            )
-        );
-    }
+  render: function () {
+    var userURL = 'http://localhost:3000/api/users/' + String(user_id);
+    return (
+      React.createElement("div", {className: "userBox"}, 
+        React.createElement(User, {pollInterval: 2000, url: userURL})
+      )
+    );
+  }
 });
 
 },{"../../libraries/jquery/dist/jquery":11,"../../libraries/react/react-with-addons.js":12,"./User.jsx":7}],9:[function(require,module,exports){
@@ -230,23 +233,23 @@ var value = 0; //Enter the amount of skins
 
 /*ctx.translate(0, 600); //Set origin to bottom right
 
- ctx.fillStyle="#E9EAED";
- ctx.fillRect(0,0, 200, -600);
+ctx.fillStyle="#E9EAED";
+ctx.fillRect(0,0, 200, -600);
 
- /*var interval = window.setInterval(fillBar, 1000); *///Fills bar by 1 per second...doesn't stop
+/*var interval = window.setInterval(fillBar, 1000); *///Fills bar by 1 per second...doesn't stop
 
 var skinstext = document.getElementById("numSkins");
 function fillBar() {
-    ctx.fillStyle="#14a1ff";
-    ctx.fillRect(0, 0, value * 10, 200); //Up to 10 skins
-    if(i % 30 == 0)
-        skinstext.innerHTML = (i/30).toString() + " skins deposited";
-    if(i <= skins*30) {
-        i++;
-        value ++;
-    }
-    else
-        clearInterval(interval);
+  ctx.fillStyle="#14a1ff";
+  ctx.fillRect(0, 0, value * 10, 200); //Up to 10 skins
+  if(i % 30 == 0)
+  skinstext.innerHTML = (i/30).toString() + " skins deposited";
+  if(i <= skins*30) {
+    i++;
+    value ++;
+  }
+  else
+  clearInterval(interval);
 };
 var i = 0;
 var skins = 10;

@@ -14,19 +14,19 @@ var InventoryBox = require('./InventoryBox.jsx');
 var Canvas = require('./canvas.jsx');
 
 React.render(
-    <RoundBox />,
-    document.getElementById('main')
+  <RoundBox />,
+  document.getElementById('main')
 );
 
 
 if(typeof user_id !== 'undefined') {
-    React.render(
-        <UserBox />,
-        document.getElementById('user')
-    );
+  React.render(
+    <UserBox />,
+    document.getElementById('user')
+  );
 }
 
 React.render(
-    <InventoryBox />,
-    document.getElementById('inventory')
+  <InventoryBox />,
+  document.getElementById('inventory')
 );

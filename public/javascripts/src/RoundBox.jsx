@@ -5,13 +5,13 @@ var Rounds = require('./Rounds.jsx');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-module.exports =  React.createClass({
-    render: function() {
-        return (
-            <div className="roundBox">
-                <Rounds url="http://localhost:3000/api/rounds" pollInterval={2000} />
-            </div>
+module.exports = React.createClass({
+  render: function () {
+    return (
+      <div className="roundBox">
+        <Rounds pollInterval={2000} url="http://localhost:3000/api/rounds"/>
+      </div>
 
-        );
-    }
+    );
+  }
 });
