@@ -1,8 +1,6 @@
 var React = require('../../libraries/react/react-with-addons.js');
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
-inventoryURL = 'http://steamcommunity.com/profiles/'+user_id+'/inventory/json/730/2';
-
 module.exports =  React.createClass({
     loadInventoryFromServer: function() {
         $.ajax({
