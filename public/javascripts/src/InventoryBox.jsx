@@ -3,8 +3,9 @@ var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
 module.exports =  React.createClass({
   loadInventoryFromServer: function() {
+    console.log("In GET");
     $.ajax({
-      url: inventoryURL,
+      url: apiPath + '/inventory/' + this.props.steam_id,
       dataType: 'json',
       type: 'GET',
       cache: false,
@@ -18,11 +19,13 @@ module.exports =  React.createClass({
   },
   componentDidMount: function() {
     this.loadInventoryFromServer();
+    console.log("InventoryBox did mount");
   },
   render: function() {
     return (
       <div className="inventoryBox">
         <p>{this.state.data}</p>
+        <p>Inventory Box Test</p>
       </div>
     );
   }

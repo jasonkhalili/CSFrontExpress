@@ -9,7 +9,7 @@ module.exports = React.createClass({
   render: function () {
     return (
       <div className="roundBox">
-        <Rounds pollInterval={2000} url="http://localhost:3000/api/rounds"/>
+        <Rounds pollInterval={2000} url='http://localhost:3000/api/rounds' />
       </div>
 
     );
