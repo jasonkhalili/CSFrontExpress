@@ -1,10 +1,10 @@
 // Libraries
-var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+$ = jQuery = require('jquery');
 var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap');
 var bootstrapMaterialDesign = require('../../libraries/bootstrap-material-design/dist/js/material');
 var ripples = require('../../libraries/bootstrap-material-design/dist/js/ripples');
 
-var React = require('../../libraries/react/react-with-addons.js');
+var React = require('react/addons');
 
 // React Components
 var HelloWorld = require('./HelloWorld.jsx');

@@ -1,5 +1,4 @@
-var React = require('../../libraries/react/react-with-addons.js')
-var $ = jQuery = require('../../libraries/jquery/dist/jquery');
+var React = require('react/addons');
 
 var User = require('./User.jsx');
 

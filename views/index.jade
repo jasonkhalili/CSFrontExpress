@@ -32,9 +32,7 @@ block content
   #inventory
 
   if user
-    |Steam ID: #{user.id}
     script.
       if(user.id) {
         var user_id = '#{user.id}';
-        console.log(user_id);
       }
