@@ -3,9 +3,10 @@ var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 
 module.exports =  React.createClass({
   loadInventoryFromServer: function() {
+    console.log(this.props.steam_id);
     console.log("In GET");
     $.ajax({
-      url: apiPath + '/inventory/' + this.props.steam_id,
+      url: 'http://localhost:3000/api/inventory/' + this.props.steam_id,
       dataType: 'json',
       type: 'GET',
       cache: false,

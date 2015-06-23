@@ -1,10 +1,10 @@
 // Libraries
 var $ = jQuery = require('../../libraries/jquery/dist/jquery');
 var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap');
+var bootstrapMaterialDesign = require('../../libraries/bootstrap-material-design/dist/js/material');
+var ripples = require('../../libraries/bootstrap-material-design/dist/js/ripples');
 
 var React = require('../../libraries/react/react-with-addons.js');
-
-var request = require('request');
 
 // React Components
 var HelloWorld = require('./HelloWorld.jsx');
@@ -14,9 +14,6 @@ var InventoryBox = require('./InventoryBox.jsx');
 
 // Additional Scripting
 // var Canvas = require('./canvas.jsx');
-
-//Globals
-var apiPath = 'http://localhost:3000/api';
 
 React.render(
   <RoundBox />,
@@ -30,7 +27,7 @@ if(typeof user_id !== 'undefined') {
     document.getElementById('user')
   );
   React.render(
-    <InventoryBox steam_id={String(user_id)} />,
+    <InventoryBox steam_id={user_id} />,
     document.getElementById('inventory')
   );
 }
