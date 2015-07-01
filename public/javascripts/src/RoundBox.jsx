@@ -12,7 +12,6 @@ module.exports = React.createClass({
       type: 'GET',
       cache: false,
       success: function (data) {
-        console.log(JSON.stringify(data[0].game_id));
         this.setState({
           players: data[0].players,
           roundId: data[0].game_id
@@ -32,10 +31,10 @@ module.exports = React.createClass({
   },
   render: function () {
     return (
-      <div>
+      <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
         <h1>Round # {this.state.roundId}</h1>
         <PlayersBox players={this.state.players}/>
-      </div>
+      </ReactCSSTransitionGroup>
     );
   }
 });
