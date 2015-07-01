@@ -30920,7 +30920,7 @@ module.exports = React.createClass({displayName: "exports",
         this.props.players.map(function(player) {
           return (
             React.createElement("div", null, 
-              React.createElement("img", {src: player[0].avatar}, player[0].personaname)
+              React.createElement("img", {src: player.avatar}, player.personaname)
             )
           );
         })
@@ -30944,9 +30944,16 @@ module.exports = React.createClass({displayName: "exports",
       type: 'GET',
       cache: false,
       success: function (data) {
+        var players = data[0].players;
+        var roundId = data[0].game_id;
+        var allItems = [];
+        for(i = 0; i < players.length; i++) {
+          allItems.push(players[i].items);
+        }
         this.setState({
-          players: data[0].players,
-          roundId: data[0].game_id
+          players: players,
+          roundId: roundId,
+          allItems: allItems
         });
       }.bind(this)
     });
@@ -30954,7 +30961,8 @@ module.exports = React.createClass({displayName: "exports",
   getInitialState: function () {
     return {
       players: [],
-      roundId: null
+      roundId: null,
+      allItems: []
     };
   },
   componentDidMount: function () {
@@ -30965,7 +30973,8 @@ module.exports = React.createClass({displayName: "exports",
     return (
       React.createElement(ReactCSSTransitionGroup, {transitionName: "example", transitionAppear: true}, 
         React.createElement("h1", null, "Round # ", this.state.roundId), 
-        React.createElement(PlayersBox, {players: this.state.players})
+        React.createElement(PlayersBox, {players: this.state.players}), 
+        React.createElement("p", null, this.state.allItems)
       )
     );
   }

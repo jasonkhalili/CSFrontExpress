@@ -9,7 +9,7 @@ module.exports = React.createClass({
         {this.props.players.map(function(player) {
           return (
             <div>
-              <img src={player[0].avatar}>{player[0].personaname}</img>
+              <img src={player.avatar}>{player.personaname}</img>
             </div>
           );
         })}
