@@ -12,10 +12,16 @@ module.exports = React.createClass({
       type: 'GET',
       cache: false,
       success: function (data) {
-        console.log(JSON.stringify(data[0].game_id));
+        var players = data[0].players;
+        var roundId = data[0].game_id;
+        var allItems = [];
+        for(i = 0; i < players.length; i++) {
+          allItems.push(players[i].items);
+        }
         this.setState({
-          players: data[0].players,
-          roundId: data[0].game_id
+          players: players,
+          roundId: roundId,
+          allItems: allItems
         });
       }.bind(this)
     });
@@ -23,7 +29,8 @@ module.exports = React.createClass({
   getInitialState: function () {
     return {
       players: [],
-      roundId: null
+      roundId: null,
+      allItems: []
     };
   },
   componentDidMount: function () {
@@ -32,10 +39,11 @@ module.exports = React.createClass({
   },
   render: function () {
     return (
-      <div>
+      <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
         <h1>Round # {this.state.roundId}</h1>
         <PlayersBox players={this.state.players}/>
-      </div>
+        <p>{this.state.allItems}</p>
+      </ReactCSSTransitionGroup>
     );
   }
 });

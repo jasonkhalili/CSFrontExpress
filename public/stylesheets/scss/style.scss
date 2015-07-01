@@ -121,3 +121,13 @@ button {
     transform: translateY(0px);
   }
 }
+
+// example animation for React testing
+.example-appear {
+  opacity: 0.01;
+  transition: opacity 1s ease-in;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+}
