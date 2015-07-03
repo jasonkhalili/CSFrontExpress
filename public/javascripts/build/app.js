@@ -31407,6 +31407,7 @@ var React = require('react/addons');
 var request = require('browser-request');
 
 var PlayersBox = require('./PlayersBox.jsx');
+var RoundItems = require('./RoundItems.jsx');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -31420,7 +31421,9 @@ module.exports = React.createClass({displayName: "exports",
       var roundId = data[0].game_id;
       var allItems = [];
       for(i = 0; i < players.length; i++) {
-        allItems.push(players[i].items);
+        for(j = 0; j < players[i].items.length; j++) {
+          allItems.push(players[i].items[j]);
+        }
       }
       this.setState({
         players: players,
@@ -31445,13 +31448,34 @@ module.exports = React.createClass({displayName: "exports",
       React.createElement(ReactCSSTransitionGroup, {transitionName: "example", transitionAppear: true}, 
         React.createElement("h1", null, "Round # ", this.state.roundId), 
         React.createElement(PlayersBox, {players: this.state.players}), 
-        React.createElement("p", null, this.state.allItems)
+        React.createElement(RoundItems, {items: this.state.allItems})
       )
     );
   }
 });
 
-},{"./PlayersBox.jsx":176,"browser-request":1,"react/addons":3}],178:[function(require,module,exports){
+},{"./PlayersBox.jsx":176,"./RoundItems.jsx":178,"browser-request":1,"react/addons":3}],178:[function(require,module,exports){
+var React = require('react/addons');
+
+module.exports = React.createClass({displayName: "exports",
+  render: function() {
+    console.log(JSON.stringify(this.props.items));
+    return (
+      React.createElement("ul", {className: "roundItems"}, 
+        this.props.items.map(function(item) {
+          var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
+          return (
+            React.createElement("li", null, 
+              React.createElement("img", {src: itemURL}), React.createElement("p", null, item.name)
+            )
+          );
+        })
+      )
+    );
+  }
+});
+
+},{"react/addons":3}],179:[function(require,module,exports){
 var React = require('react/addons');
 var $ = jQuery = require('jquery');
 
@@ -31502,7 +31526,7 @@ module.exports =  React.createClass({displayName: "exports",
     }
   });
 
-},{"jquery":2,"react/addons":3}],179:[function(require,module,exports){
+},{"jquery":2,"react/addons":3}],180:[function(require,module,exports){
 var React = require('react/addons');
 
 var User = require('./User.jsx');
@@ -31518,7 +31542,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./User.jsx":178,"react/addons":3}],180:[function(require,module,exports){
+},{"./User.jsx":179,"react/addons":3}],181:[function(require,module,exports){
 // Libraries
 $ = jQuery = require('jquery');
 var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap');
@@ -31542,7 +31566,7 @@ React.render(
   document.getElementById('main')
 );
 
-},{"../../libraries/bootstrap-material-design/dist/js/material":181,"../../libraries/bootstrap-material-design/dist/js/ripples":182,"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":183,"./InventoryBox.jsx":175,"./PlayersBox.jsx":176,"./RoundBox.jsx":177,"./UserBox.jsx":179,"browser-request":1,"jquery":2,"react/addons":3}],181:[function(require,module,exports){
+},{"../../libraries/bootstrap-material-design/dist/js/material":182,"../../libraries/bootstrap-material-design/dist/js/ripples":183,"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":184,"./InventoryBox.jsx":175,"./PlayersBox.jsx":176,"./RoundBox.jsx":177,"./UserBox.jsx":180,"browser-request":1,"jquery":2,"react/addons":3}],182:[function(require,module,exports){
 /* globals jQuery */
 
 (function($) {
@@ -31770,7 +31794,7 @@ React.render(
 
 })(jQuery);
 
-},{}],182:[function(require,module,exports){
+},{}],183:[function(require,module,exports){
 /* Copyright 2014+, Federico Zivolo, LICENSE at https://github.com/FezVrasta/bootstrap-material-design/blob/master/LICENSE.md */
 /* globals jQuery, navigator */
 
@@ -32096,7 +32120,7 @@ React.render(
 
 })(jQuery, window, document);
 
-},{}],183:[function(require,module,exports){
+},{}],184:[function(require,module,exports){
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -34415,4 +34439,4 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-},{}]},{},[180]);
+},{}]},{},[181]);
