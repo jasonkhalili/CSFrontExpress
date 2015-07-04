@@ -1,5 +1,6 @@
 // Libraries
 $ = jQuery = require('jquery');
+require("../../libraries/semantic-ui/dist/semantic.js");
 var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap');
 var bootstrapMaterialDesign = require('../../libraries/bootstrap-material-design/dist/js/material');
 var ripples = require('../../libraries/bootstrap-material-design/dist/js/ripples');

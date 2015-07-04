@@ -6,6 +6,8 @@ var RoundItems = require('./RoundItems.jsx');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
+var Button = require('react-semantify').Button;
+
 module.exports = React.createClass({
   loadCurrentRoundFromServer: function () {
     request({url: 'http://localhost:3000/api/currentround', json:true}, function(error, response, data) {
@@ -41,9 +43,13 @@ module.exports = React.createClass({
   render: function () {
     return (
       <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
-        <h1>Round # {this.state.roundId}</h1>
-        <PlayersBox players={this.state.players}/>
-        <RoundItems items={this.state.allItems}/>
+        <div className="ui grid">
+          <h1 className="ui header">Round # {this.state.roundId}</h1>
+          <div className="sixteen wide column">
+            <RoundItems items={this.state.allItems}/>
+          </div>
+          <PlayersBox players={this.state.players}/>
+        </div>
       </ReactCSSTransitionGroup>
     );
   }
