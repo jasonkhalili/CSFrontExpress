@@ -33912,11 +33912,12 @@ module.exports = React.createClass({displayName: "exports",
   render: function () {
     return (
       React.createElement(ReactCSSTransitionGroup, {transitionName: "example", transitionAppear: true}, 
-        React.createElement("h1", null, "Round # ", this.state.roundId), 
-        React.createElement(PlayersBox, {players: this.state.players}), 
-        React.createElement(RoundItems, {items: this.state.allItems}), 
-        React.createElement(Button, {color: "red"}, 
-          "Hello World!"
+        React.createElement("div", {className: "ui grid"}, 
+          React.createElement("h1", {className: "ui header"}, "Round # ", this.state.roundId), 
+          React.createElement("div", {className: "sixteen wide column"}, 
+            React.createElement(RoundItems, {items: this.state.allItems})
+          ), 
+          React.createElement(PlayersBox, {players: this.state.players})
         )
       )
     );
@@ -33926,16 +33927,25 @@ module.exports = React.createClass({displayName: "exports",
 },{"./PlayersBox.jsx":233,"./RoundItems.jsx":235,"browser-request":1,"react-semantify":33,"react/addons":60}],235:[function(require,module,exports){
 var React = require('react/addons');
 
+var Popup = require('react-semantify').Popup;
+
 module.exports = React.createClass({displayName: "exports",
   render: function() {
     console.log(JSON.stringify(this.props.items));
     return (
-      React.createElement("ul", {className: "roundItems"}, 
+      React.createElement("div", {className: "ui sixteen cards"}, 
         this.props.items.map(function(item) {
           var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
+          var itemPrice = item.median_price.replace("&#36;", "$");
+          $('.card')
+            .popup({
+              on: 'click'
+            });
           return (
-            React.createElement("li", null, 
-              React.createElement("img", {src: itemURL}), React.createElement("p", null, item.name)
+            React.createElement("a", {className: "ui red card", "data-content": item.name}, 
+              React.createElement("div", {className: "ui image"}, 
+                React.createElement("img", {src: itemURL}), React.createElement("p", null, itemPrice)
+              )
             )
           );
         })
@@ -33944,7 +33954,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react/addons":60}],236:[function(require,module,exports){
+},{"react-semantify":33,"react/addons":60}],236:[function(require,module,exports){
 var React = require('react/addons');
 var $ = jQuery = require('jquery');
 
