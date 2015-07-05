@@ -33848,6 +33848,19 @@ module.exports =  React.createClass({displayName: "exports",
 },{"jquery":2,"react/addons":60}],233:[function(require,module,exports){
 var React = require('react/addons');
 
+module.exports = React.createClass({displayName: "exports",
+  render: function () {
+    return (
+      React.createElement("div", {className: "itemsChart"}, 
+        React.createElement("p", null, "ItemsChart")
+      )
+    );
+  }
+});
+
+},{"react/addons":60}],234:[function(require,module,exports){
+var React = require('react/addons');
+
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 module.exports = React.createClass({displayName: "exports",
@@ -33866,12 +33879,13 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react/addons":60}],234:[function(require,module,exports){
+},{"react/addons":60}],235:[function(require,module,exports){
 var React = require('react/addons');
 var request = require('browser-request');
 
 var PlayersBox = require('./PlayersBox.jsx');
 var RoundItems = require('./RoundItems.jsx');
+var ItemsChart = require('./ItemsChart.jsx');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -33917,14 +33931,15 @@ module.exports = React.createClass({displayName: "exports",
           React.createElement("div", {className: "sixteen wide column"}, 
             React.createElement(RoundItems, {items: this.state.allItems})
           ), 
-          React.createElement(PlayersBox, {players: this.state.players})
+          React.createElement(PlayersBox, {players: this.state.players}), 
+          React.createElement(ItemsChart, {players: this.state.players})
         )
       )
     );
   }
 });
 
-},{"./PlayersBox.jsx":233,"./RoundItems.jsx":235,"browser-request":1,"react-semantify":33,"react/addons":60}],235:[function(require,module,exports){
+},{"./ItemsChart.jsx":233,"./PlayersBox.jsx":234,"./RoundItems.jsx":236,"browser-request":1,"react-semantify":33,"react/addons":60}],236:[function(require,module,exports){
 var React = require('react/addons');
 
 var Popup = require('react-semantify').Popup;
@@ -33933,16 +33948,16 @@ module.exports = React.createClass({displayName: "exports",
   render: function() {
     console.log(JSON.stringify(this.props.items));
     return (
-      React.createElement("div", {className: "ui sixteen cards"}, 
+      React.createElement("div", {className: "ui cards"}, 
         this.props.items.map(function(item) {
           var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
-          var itemPrice = item.median_price.replace("&#36;", "$");
+          var itemPrice = item.median_price;
           $('.card')
             .popup({
               on: 'click'
             });
           return (
-            React.createElement("a", {className: "ui red card", "data-content": item.name}, 
+            React.createElement("a", {className: "ui {item.name_color} card", "data-content": item.name}, 
               React.createElement("div", {className: "ui image"}, 
                 React.createElement("img", {src: itemURL}), React.createElement("p", null, itemPrice)
               )
@@ -33954,7 +33969,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react-semantify":33,"react/addons":60}],236:[function(require,module,exports){
+},{"react-semantify":33,"react/addons":60}],237:[function(require,module,exports){
 var React = require('react/addons');
 var $ = jQuery = require('jquery');
 
@@ -34005,7 +34020,7 @@ module.exports =  React.createClass({displayName: "exports",
     }
   });
 
-},{"jquery":2,"react/addons":60}],237:[function(require,module,exports){
+},{"jquery":2,"react/addons":60}],238:[function(require,module,exports){
 var React = require('react/addons');
 
 var User = require('./User.jsx');
@@ -34021,7 +34036,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./User.jsx":236,"react/addons":60}],238:[function(require,module,exports){
+},{"./User.jsx":237,"react/addons":60}],239:[function(require,module,exports){
 // Libraries
 $ = jQuery = require('jquery');
 require("../../libraries/semantic-ui/dist/semantic.js");
@@ -34046,7 +34061,7 @@ React.render(
   document.getElementById('main')
 );
 
-},{"../../libraries/bootstrap-material-design/dist/js/material":239,"../../libraries/bootstrap-material-design/dist/js/ripples":240,"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":241,"../../libraries/semantic-ui/dist/semantic.js":242,"./InventoryBox.jsx":232,"./PlayersBox.jsx":233,"./RoundBox.jsx":234,"./UserBox.jsx":237,"browser-request":1,"jquery":2,"react/addons":60}],239:[function(require,module,exports){
+},{"../../libraries/bootstrap-material-design/dist/js/material":240,"../../libraries/bootstrap-material-design/dist/js/ripples":241,"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":242,"../../libraries/semantic-ui/dist/semantic.js":243,"./InventoryBox.jsx":232,"./PlayersBox.jsx":234,"./RoundBox.jsx":235,"./UserBox.jsx":238,"browser-request":1,"jquery":2,"react/addons":60}],240:[function(require,module,exports){
 /* globals jQuery */
 
 (function($) {
@@ -34274,7 +34289,7 @@ React.render(
 
 })(jQuery);
 
-},{}],240:[function(require,module,exports){
+},{}],241:[function(require,module,exports){
 /* Copyright 2014+, Federico Zivolo, LICENSE at https://github.com/FezVrasta/bootstrap-material-design/blob/master/LICENSE.md */
 /* globals jQuery, navigator */
 
@@ -34600,7 +34615,7 @@ React.render(
 
 })(jQuery, window, document);
 
-},{}],241:[function(require,module,exports){
+},{}],242:[function(require,module,exports){
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -36919,7 +36934,7 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-},{}],242:[function(require,module,exports){
+},{}],243:[function(require,module,exports){
  /*
  * # Semantic UI - 2.0.0
  * https://github.com/Semantic-Org/Semantic-UI
@@ -57532,4 +57547,4 @@ $.fn.visibility.settings = {
 
 })( jQuery, window , document );
 
-},{}]},{},[238]);
+},{}]},{},[239]);
