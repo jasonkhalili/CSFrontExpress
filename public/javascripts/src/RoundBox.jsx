@@ -3,6 +3,7 @@ var request = require('browser-request');
 
 var PlayersBox = require('./PlayersBox.jsx');
 var RoundItems = require('./RoundItems.jsx');
+var ItemsChart = require('./ItemsChart.jsx');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -49,6 +50,7 @@ module.exports = React.createClass({
             <RoundItems items={this.state.allItems}/>
           </div>
           <PlayersBox players={this.state.players}/>
+          <ItemsChart players={this.state.players}/>
         </div>
       </ReactCSSTransitionGroup>
     );
