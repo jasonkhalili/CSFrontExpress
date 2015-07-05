@@ -17,8 +17,14 @@ module.exports = React.createClass({
       }
       var players = data[0].players;
       var roundId = data[0].game_id;
+      var itemChartData = [];
       var allItems = [];
       for(i = 0; i < players.length; i++) {
+        itemChartData.push({
+          value: players[i].total_item_value,
+          color: "000000",
+          label: players[i].personaname + " deposited " + players[i].items.length + " skins"
+        });
         for(j = 0; j < players[i].items.length; j++) {
           allItems.push(players[i].items[j]);
         }
@@ -26,6 +32,7 @@ module.exports = React.createClass({
       this.setState({
         players: players,
         roundId: roundId,
+        itemChartData: itemChartData,
         allItems: allItems
       });
     }.bind(this));
@@ -34,6 +41,7 @@ module.exports = React.createClass({
     return {
       players: [],
       roundId: null,
+      itemChartData: [],
       allItems: []
     };
   },
@@ -50,7 +58,7 @@ module.exports = React.createClass({
             <RoundItems items={this.state.allItems}/>
           </div>
           <PlayersBox players={this.state.players}/>
-          <ItemsChart players={this.state.players}/>
+          <ItemsChart itemChartData={this.state.itemChartData}/>
         </div>
       </ReactCSSTransitionGroup>
     );

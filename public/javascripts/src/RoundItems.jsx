@@ -4,7 +4,6 @@ var Popup = require('react-semantify').Popup;
 
 module.exports = React.createClass({
   render: function() {
-    console.log(JSON.stringify(this.props.items));
     return (
       <div className="ui cards">
         {this.props.items.map(function(item) {
