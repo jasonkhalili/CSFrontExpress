@@ -29,6 +29,7 @@ module.exports = React.createClass({
           allItems.push(players[i].items[j]);
         }
       }
+      var showChart = true;
       this.setState({
         players: players,
         roundId: roundId,
@@ -42,6 +43,7 @@ module.exports = React.createClass({
       players: [],
       roundId: null,
       itemChartData: [],
+      showChart: false,
       allItems: []
     };
   },
@@ -58,7 +60,7 @@ module.exports = React.createClass({
             <RoundItems items={this.state.allItems}/>
           </div>
           <PlayersBox players={this.state.players}/>
-          <ItemsChart itemChartData={this.state.itemChartData}/>
+          <ItemsChart itemChartData={this.state.itemChartData} show={this.state.showChart}/>
         </div>
       </ReactCSSTransitionGroup>
     );

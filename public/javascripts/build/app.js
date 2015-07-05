@@ -37702,12 +37702,19 @@ var DoughnutChart = require('react-chartjs').Pie;
 
 module.exports = React.createClass({displayName: "exports",
   render: function() {
-    return (
-      React.createElement("div", {className: "itemsChart"}, 
-        React.createElement("p", null, "ItemsChart"), 
-        React.createElement(DoughnutChart, {data: this.props.itemChartData})
-      )
-    );
+    if(this.props.show) {
+      return (
+        React.createElement("div", {className: "itemsChart"}, 
+          React.createElement("p", null, "ItemsChart"), 
+          React.createElement(DoughnutChart, {data: this.props.itemChartData})
+        )
+      );
+    }
+    else {
+      return (
+        React.createElement("p", null, "No data")
+      );
+    }
   }
 });
 
@@ -37764,6 +37771,7 @@ module.exports = React.createClass({displayName: "exports",
           allItems.push(players[i].items[j]);
         }
       }
+      var showChart = true;
       this.setState({
         players: players,
         roundId: roundId,
@@ -37777,6 +37785,7 @@ module.exports = React.createClass({displayName: "exports",
       players: [],
       roundId: null,
       itemChartData: [],
+      showChart: false,
       allItems: []
     };
   },
@@ -37793,7 +37802,7 @@ module.exports = React.createClass({displayName: "exports",
             React.createElement(RoundItems, {items: this.state.allItems})
           ), 
           React.createElement(PlayersBox, {players: this.state.players}), 
-          React.createElement(ItemsChart, {itemChartData: this.state.itemChartData})
+          React.createElement(ItemsChart, {itemChartData: this.state.itemChartData, show: this.state.showChart})
         )
       )
     );
