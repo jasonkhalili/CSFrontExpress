@@ -22,7 +22,6 @@ module.exports = React.createClass({
       for(i = 0; i < players.length; i++) {
         itemChartData.push({
           value: players[i].total_item_value,
-          color: "000000",
           label: players[i].personaname + " deposited " + players[i].items.length + " skins"
         });
         for(j = 0; j < players[i].items.length; j++) {
