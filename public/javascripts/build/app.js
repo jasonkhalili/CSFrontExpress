@@ -52220,8 +52220,7 @@ module.exports = React.createClass({displayName: "exports",
           height: 400, 
           radius: 100, 
           innerRadius: 20, 
-          title: "Pie Chart", 
-          className: "rd3-piechart"}
+          title: "Pie Chart"}
         )
       )
     );
