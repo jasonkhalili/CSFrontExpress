@@ -13,7 +13,7 @@ module.exports = React.createClass({
           radius={100}
           innerRadius={20}
           title="Pie Chart"
-          />
+        />
       </div>
     );
   }
