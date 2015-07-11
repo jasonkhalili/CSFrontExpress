@@ -1,9 +1,7 @@
 // Libraries
 $ = jQuery = require('jquery');
 require("../../libraries/semantic-ui/dist/semantic.js");
-var bootstrap = require('../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap');
-var bootstrapMaterialDesign = require('../../libraries/bootstrap-material-design/dist/js/material');
-var ripples = require('../../libraries/bootstrap-material-design/dist/js/ripples');
+require("../../libraries/chart.js/chart.js");
 var request = require('browser-request');
 
 var React = require('react/addons');
@@ -13,9 +11,6 @@ var RoundBox = require('./RoundBox.jsx');
 var PlayersBox = require('./PlayersBox.jsx');
 var UserBox = require('./UserBox.jsx');
 var InventoryBox = require('./InventoryBox.jsx');
-
-// Additional Scripting
-// var Canvas = require('./canvas.jsx');
 
 React.render(
   <RoundBox />,
