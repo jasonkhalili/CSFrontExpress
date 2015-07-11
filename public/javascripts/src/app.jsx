@@ -1,7 +1,6 @@
 // Libraries
 $ = jQuery = require('jquery');
 require("../../libraries/semantic-ui/dist/semantic.js");
-require("../../libraries/chart.js/chart.js");
 var request = require('browser-request');
 
 var React = require('react/addons');

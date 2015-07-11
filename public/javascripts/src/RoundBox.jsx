@@ -37,6 +37,7 @@ module.exports = React.createClass({
       var players = data[0].players;
       var roundId = data[0].game_id;
       var allItems = [];
+      var itemChartData = [];
       for(i = 0; i < players.length; i++) {
         itemChartData.push({
           value: players[i].total_item_value,
@@ -51,6 +52,7 @@ module.exports = React.createClass({
       this.setState({
         players: players,
         roundId: roundId,
+        itemChartData: itemChartData,
         allItems: allItems
       });
     }.bind(this));
@@ -59,6 +61,7 @@ module.exports = React.createClass({
     return {
       players: [],
       roundId: null,
+      itemChartData: [],
       allItems: []
     };
   },

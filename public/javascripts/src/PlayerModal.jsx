@@ -16,8 +16,8 @@ module.exports = React.createClass({
           <div className="ui image medium">
             <img src={this.props.player.avatarfull}/>
           </div>
-          <div class="description">
-            <div class="ui header">
+          <div className="description">
+            <div className="ui header">
               Deposit Info:
             </div>
             <div className="ui items">
