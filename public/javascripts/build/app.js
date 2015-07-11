@@ -24,7 +24,7 @@ React.render(
   document.getElementById('main')
 );
 
-},{"../../libraries/bootstrap-material-design/dist/js/material":241,"../../libraries/bootstrap-material-design/dist/js/ripples":242,"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":243,"../../libraries/chart.js/chart.js":244,"../../libraries/semantic-ui/dist/semantic.js":245,"./InventoryBox.jsx":234,"./PlayersBox.jsx":236,"./RoundBox.jsx":237,"./UserBox.jsx":240,"browser-request":2,"jquery":4,"react/addons":62}],2:[function(require,module,exports){
+},{"../../libraries/bootstrap-material-design/dist/js/material":242,"../../libraries/bootstrap-material-design/dist/js/ripples":243,"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":244,"../../libraries/chart.js/chart.js":245,"../../libraries/semantic-ui/dist/semantic.js":246,"./InventoryBox.jsx":234,"./PlayersBox.jsx":237,"./RoundBox.jsx":238,"./UserBox.jsx":241,"browser-request":2,"jquery":4,"react/addons":62}],2:[function(require,module,exports){
 // Browser Request
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -34095,11 +34095,35 @@ module.exports =  React.createClass({displayName: "exports",
 
 },{"jquery":4,"react/addons":62}],235:[function(require,module,exports){
 var React = require('react/addons');
+var PlayersBox = require('./PlayersBox.jsx');
 
 var chartOptions = {
   responsive: true,
-  scaleIntegersOnly: false
+  scaleIntegersOnly: false,
 };
+
+var chartColors = [
+  "#393b79",
+  "#5254a3",
+  "#6b6ecf",
+  "#9c9ede",
+  "#637939",
+  "#8ca252",
+  "#b5cf6b",
+  "#cedb9c",
+  "#8c6d31",
+  "#bd9e39",
+  "#e7ba52",
+  "#e7cb94",
+  "#843c39",
+  "#ad494a",
+  "#d6616b",
+  "#e7969c",
+  "#7b4173",
+  "#a55194",
+  "#ce6dbd",
+  "#de9ed6"
+];
 
 module.exports = React.createClass({displayName: "exports",
   renderChart: function(data) {
@@ -34113,6 +34137,15 @@ module.exports = React.createClass({displayName: "exports",
   componentDidMount: function() {
     this.renderChart([]);
   },
+  handleClick: function(click) {
+    var activePoints = this.myDoughnutChart.getSegmentsAtEvent(click);
+    console.log(activePoints[0].fillColor);
+    var playerIndex = chartColors.indexOf(activePoints[0].fillColor);
+    var modalToShow = '.ui.modal.' + this.props.players[playerIndex].id;
+    $(modalToShow).modal('show');
+
+    // => activePoints is an array of segments on the canvas that are at the same position as the click event.
+  },
   componentDidUpdate: function(prevProps) {
     var diff = this.props.itemChartData.length - prevProps.itemChartData.length;
     if(diff) {
@@ -34125,16 +34158,36 @@ module.exports = React.createClass({displayName: "exports",
     return (
       React.createElement("div", {className: "itemsChart"}, 
         React.createElement("p", null, "ItemsChart"), 
-        React.createElement("canvas", {id: "myChart", width: "400", height: "400"})
+        React.createElement("canvas", {id: "myChart", width: "400", height: "400", onClick: this.handleClick}), 
+        React.createElement(PlayersBox, {players: this.props.players})
       )
     );
   }
 });
 
-},{"react/addons":62}],236:[function(require,module,exports){
+},{"./PlayersBox.jsx":237,"react/addons":62}],236:[function(require,module,exports){
 var React = require('react/addons');
+var Modal = require('react-semantify').Modal;
 
+module.exports = React.createClass({displayName: "exports",
+  // componentDidMount: function() {
+  //   $('.ui.modal').modal('show');
+  // },
+  render: function() {
+    var className="basic " + this.props.player.id + " " + this.props.player.total_item_value;
+    return (
+      React.createElement(Modal, {className: className, init: false}, 
+        React.createElement("p", null, this.props.player.personaname), 
+        React.createElement("p", null, this.props.player.total_item_value)
+      )
+    );
+  }
+});
+
+},{"react-semantify":35,"react/addons":62}],237:[function(require,module,exports){
+var React = require('react/addons');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var PlayerModal = require('./PlayerModal.jsx');
 
 module.exports = React.createClass({displayName: "exports",
   render: function() {
@@ -34143,7 +34196,7 @@ module.exports = React.createClass({displayName: "exports",
         this.props.players.map(function(player) {
           return (
             React.createElement("div", null, 
-              React.createElement("img", {src: player.avatar}, player.personaname)
+              React.createElement(PlayerModal, {player: player})
             )
           );
         })
@@ -34152,11 +34205,10 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react/addons":62}],237:[function(require,module,exports){
+},{"./PlayerModal.jsx":236,"react/addons":62}],238:[function(require,module,exports){
 var React = require('react/addons');
 var request = require('browser-request');
 
-var PlayersBox = require('./PlayersBox.jsx');
 var RoundItems = require('./RoundItems.jsx');
 var ItemsChart = require('./ItemsChart.jsx');
 
@@ -34198,7 +34250,7 @@ module.exports = React.createClass({displayName: "exports",
       for(i = 0; i < players.length; i++) {
         itemChartData.push({
           value: players[i].total_item_value,
-          label: players[i].personaname + " deposited " + players[i].items.length + " skins\n worth $",
+          label: players[i].personaname,
           color: chartColors[i],
           highlight: chartColors[i+1]
         });
@@ -34236,15 +34288,14 @@ module.exports = React.createClass({displayName: "exports",
           React.createElement("div", {className: "sixteen wide column"}, 
             React.createElement(RoundItems, {items: this.state.allItems})
           ), 
-          React.createElement(PlayersBox, {players: this.state.players}), 
-          React.createElement(ItemsChart, {itemChartData: this.state.itemChartData, show: this.state.showChart})
+          React.createElement(ItemsChart, {itemChartData: this.state.itemChartData, players: this.state.players})
         )
       )
     );
   }
 });
 
-},{"./ItemsChart.jsx":235,"./PlayersBox.jsx":236,"./RoundItems.jsx":238,"browser-request":2,"react/addons":62}],238:[function(require,module,exports){
+},{"./ItemsChart.jsx":235,"./RoundItems.jsx":239,"browser-request":2,"react/addons":62}],239:[function(require,module,exports){
 var React = require('react/addons');
 
 var Popup = require('react-semantify').Popup;
@@ -34273,7 +34324,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react-semantify":35,"react/addons":62}],239:[function(require,module,exports){
+},{"react-semantify":35,"react/addons":62}],240:[function(require,module,exports){
 var React = require('react/addons');
 var $ = jQuery = require('jquery');
 
@@ -34324,7 +34375,7 @@ module.exports =  React.createClass({displayName: "exports",
     }
   });
 
-},{"jquery":4,"react/addons":62}],240:[function(require,module,exports){
+},{"jquery":4,"react/addons":62}],241:[function(require,module,exports){
 var React = require('react/addons');
 
 var User = require('./User.jsx');
@@ -34340,7 +34391,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./User.jsx":239,"react/addons":62}],241:[function(require,module,exports){
+},{"./User.jsx":240,"react/addons":62}],242:[function(require,module,exports){
 /* globals jQuery */
 
 (function($) {
@@ -34568,7 +34619,7 @@ module.exports = React.createClass({displayName: "exports",
 
 })(jQuery);
 
-},{}],242:[function(require,module,exports){
+},{}],243:[function(require,module,exports){
 /* Copyright 2014+, Federico Zivolo, LICENSE at https://github.com/FezVrasta/bootstrap-material-design/blob/master/LICENSE.md */
 /* globals jQuery, navigator */
 
@@ -34894,7 +34945,7 @@ module.exports = React.createClass({displayName: "exports",
 
 })(jQuery, window, document);
 
-},{}],243:[function(require,module,exports){
+},{}],244:[function(require,module,exports){
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -37213,7 +37264,7 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-},{}],244:[function(require,module,exports){
+},{}],245:[function(require,module,exports){
 /**
 *example how to use
 $(document).ready(function() {
@@ -37626,7 +37677,7 @@ DonutSector.prototype.isLargeArc = function(radians) {
     return radians >= Math.PI ? ' 1 ' : ' 0 ';
 }
 
-},{}],245:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
  /*
  * # Semantic UI - 2.0.0
  * https://github.com/Semantic-Org/Semantic-UI

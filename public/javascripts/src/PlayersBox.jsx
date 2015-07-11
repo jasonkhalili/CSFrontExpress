@@ -1,6 +1,6 @@
 var React = require('react/addons');
-
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var PlayerModal = require('./PlayerModal.jsx');
 
 module.exports = React.createClass({
   render: function() {
@@ -9,7 +9,7 @@ module.exports = React.createClass({
         {this.props.players.map(function(player) {
           return (
             <div>
-              <img src={player.avatar}>{player.personaname}</img>
+              <PlayerModal player={player}/>
             </div>
           );
         })}

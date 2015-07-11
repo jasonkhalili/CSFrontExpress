@@ -1,9 +1,33 @@
 var React = require('react/addons');
+var PlayersBox = require('./PlayersBox.jsx');
 
 var chartOptions = {
   responsive: true,
-  scaleIntegersOnly: false
+  scaleIntegersOnly: false,
 };
+
+var chartColors = [
+  "#393b79",
+  "#5254a3",
+  "#6b6ecf",
+  "#9c9ede",
+  "#637939",
+  "#8ca252",
+  "#b5cf6b",
+  "#cedb9c",
+  "#8c6d31",
+  "#bd9e39",
+  "#e7ba52",
+  "#e7cb94",
+  "#843c39",
+  "#ad494a",
+  "#d6616b",
+  "#e7969c",
+  "#7b4173",
+  "#a55194",
+  "#ce6dbd",
+  "#de9ed6"
+];
 
 module.exports = React.createClass({
   renderChart: function(data) {
@@ -17,6 +41,15 @@ module.exports = React.createClass({
   componentDidMount: function() {
     this.renderChart([]);
   },
+  handleClick: function(click) {
+    var activePoints = this.myDoughnutChart.getSegmentsAtEvent(click);
+    console.log(activePoints[0].fillColor);
+    var playerIndex = chartColors.indexOf(activePoints[0].fillColor);
+    var modalToShow = '.ui.modal.' + this.props.players[playerIndex].id;
+    $(modalToShow).modal('show');
+
+    // => activePoints is an array of segments on the canvas that are at the same position as the click event.
+  },
   componentDidUpdate: function(prevProps) {
     var diff = this.props.itemChartData.length - prevProps.itemChartData.length;
     if(diff) {
@@ -29,7 +62,8 @@ module.exports = React.createClass({
     return (
       <div className="itemsChart">
         <p>ItemsChart</p>
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <canvas id="myChart" width="400" height="400" onClick={this.handleClick}></canvas>
+        <PlayersBox players={this.props.players}/>
       </div>
     );
   }
