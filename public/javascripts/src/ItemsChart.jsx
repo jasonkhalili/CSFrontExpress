@@ -44,11 +44,12 @@ module.exports = React.createClass({
   handleClick: function(click) {
     var activePoints = this.myDoughnutChart.getSegmentsAtEvent(click);
     console.log(activePoints[0].fillColor);
-    var playerIndex = chartColors.indexOf(activePoints[0].fillColor);
-    var modalToShow = '.ui.modal.' + this.props.players[playerIndex].id;
-    $(modalToShow).modal('show');
-
-    // => activePoints is an array of segments on the canvas that are at the same position as the click event.
+    var playerIndex = chartColors.indexOf(activePoints[0].fillColor)-1;
+    var modalToShow = '.ui.modal.' + playerIndex;
+    console.log(modalToShow);
+    $(modalToShow)
+      .transition('horizontal flip')
+      .modal('show');
   },
   componentDidUpdate: function(prevProps) {
     var diff = this.props.itemChartData.length - prevProps.itemChartData.length;

@@ -24,7 +24,7 @@ React.render(
   document.getElementById('main')
 );
 
-},{"../../libraries/bootstrap-material-design/dist/js/material":242,"../../libraries/bootstrap-material-design/dist/js/ripples":243,"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":244,"../../libraries/chart.js/chart.js":245,"../../libraries/semantic-ui/dist/semantic.js":246,"./InventoryBox.jsx":234,"./PlayersBox.jsx":237,"./RoundBox.jsx":238,"./UserBox.jsx":241,"browser-request":2,"jquery":4,"react/addons":62}],2:[function(require,module,exports){
+},{"../../libraries/bootstrap-material-design/dist/js/material":243,"../../libraries/bootstrap-material-design/dist/js/ripples":244,"../../libraries/bootstrap-sass-official/assets/javascripts/bootstrap":245,"../../libraries/chart.js/chart.js":246,"../../libraries/semantic-ui/dist/semantic.js":247,"./InventoryBox.jsx":234,"./PlayersBox.jsx":238,"./RoundBox.jsx":239,"./UserBox.jsx":242,"browser-request":2,"jquery":4,"react/addons":62}],2:[function(require,module,exports){
 // Browser Request
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -34095,6 +34095,28 @@ module.exports =  React.createClass({displayName: "exports",
 
 },{"jquery":4,"react/addons":62}],235:[function(require,module,exports){
 var React = require('react/addons');
+
+module.exports = React.createClass({displayName: "exports",
+  componentDidMount: function() {
+    $('.card')
+      .popup();
+  },
+  render: function() {
+    var item=this.props.item;
+    var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
+    var itemPrice = item.median_price;
+    return (
+      React.createElement("a", {className: "ui red card", "data-content": item.name}, 
+        React.createElement("div", {className: "ui image"}, 
+          React.createElement("img", {src: itemURL}), React.createElement("p", null, itemPrice)
+        )
+      )
+    );
+  }
+});
+
+},{"react/addons":62}],236:[function(require,module,exports){
+var React = require('react/addons');
 var PlayersBox = require('./PlayersBox.jsx');
 
 var chartOptions = {
@@ -34140,11 +34162,12 @@ module.exports = React.createClass({displayName: "exports",
   handleClick: function(click) {
     var activePoints = this.myDoughnutChart.getSegmentsAtEvent(click);
     console.log(activePoints[0].fillColor);
-    var playerIndex = chartColors.indexOf(activePoints[0].fillColor);
-    var modalToShow = '.ui.modal.' + this.props.players[playerIndex].id;
-    $(modalToShow).modal('show');
-
-    // => activePoints is an array of segments on the canvas that are at the same position as the click event.
+    var playerIndex = chartColors.indexOf(activePoints[0].fillColor)-1;
+    var modalToShow = '.ui.modal.' + playerIndex;
+    console.log(modalToShow);
+    $(modalToShow)
+      .transition('horizontal flip')
+      .modal('show');
   },
   componentDidUpdate: function(prevProps) {
     var diff = this.props.itemChartData.length - prevProps.itemChartData.length;
@@ -34165,7 +34188,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./PlayersBox.jsx":237,"react/addons":62}],236:[function(require,module,exports){
+},{"./PlayersBox.jsx":238,"react/addons":62}],237:[function(require,module,exports){
 var React = require('react/addons');
 var Modal = require('react-semantify').Modal;
 
@@ -34174,29 +34197,37 @@ module.exports = React.createClass({displayName: "exports",
   //   $('.ui.modal').modal('show');
   // },
   render: function() {
-    var className="basic " + this.props.player.id + " " + this.props.player.total_item_value;
+    var className = this.props.index.toString();
     return (
       React.createElement(Modal, {className: className, init: false}, 
-        React.createElement("p", null, this.props.player.personaname), 
-        React.createElement("p", null, this.props.player.total_item_value)
+        React.createElement("div", {className: "ui header"}, 
+          React.createElement("p", null, this.props.player.personaname)
+        ), 
+        React.createElement("div", {className: "content"}, 
+          React.createElement("div", {className: "ui image medium"}, 
+            React.createElement("img", {src: this.props.player.avatarfull})
+          ), 
+          React.createElement("p", null, this.props.player.total_item_value)
+        )
       )
     );
   }
 });
 
-},{"react-semantify":35,"react/addons":62}],237:[function(require,module,exports){
+},{"react-semantify":35,"react/addons":62}],238:[function(require,module,exports){
 var React = require('react/addons');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var PlayerModal = require('./PlayerModal.jsx');
 
 module.exports = React.createClass({displayName: "exports",
   render: function() {
+    var players=this.props.players;
     return (
       React.createElement("div", null, 
         this.props.players.map(function(player) {
           return (
             React.createElement("div", null, 
-              React.createElement(PlayerModal, {player: player})
+              React.createElement(PlayerModal, {player: player, index: players.indexOf(player)})
             )
           );
         })
@@ -34205,7 +34236,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./PlayerModal.jsx":236,"react/addons":62}],238:[function(require,module,exports){
+},{"./PlayerModal.jsx":237,"react/addons":62}],239:[function(require,module,exports){
 var React = require('react/addons');
 var request = require('browser-request');
 
@@ -34295,28 +34326,17 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./ItemsChart.jsx":235,"./RoundItems.jsx":239,"browser-request":2,"react/addons":62}],239:[function(require,module,exports){
+},{"./ItemsChart.jsx":236,"./RoundItems.jsx":240,"browser-request":2,"react/addons":62}],240:[function(require,module,exports){
 var React = require('react/addons');
-
-var Popup = require('react-semantify').Popup;
+var ItemCard = require('./ItemCard.jsx');
 
 module.exports = React.createClass({displayName: "exports",
   render: function() {
     return (
       React.createElement("div", {className: "ui cards"}, 
         this.props.items.map(function(item) {
-          var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
-          var itemPrice = item.median_price;
-          $('.card')
-            .popup({
-              on: 'click'
-            });
           return (
-            React.createElement("a", {className: "ui {item.name_color} card", "data-content": item.name}, 
-              React.createElement("div", {className: "ui image"}, 
-                React.createElement("img", {src: itemURL}), React.createElement("p", null, itemPrice)
-              )
-            )
+            React.createElement(ItemCard, {item: item})
           );
         })
       )
@@ -34324,7 +34344,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react-semantify":35,"react/addons":62}],240:[function(require,module,exports){
+},{"./ItemCard.jsx":235,"react/addons":62}],241:[function(require,module,exports){
 var React = require('react/addons');
 var $ = jQuery = require('jquery');
 
@@ -34375,7 +34395,7 @@ module.exports =  React.createClass({displayName: "exports",
     }
   });
 
-},{"jquery":4,"react/addons":62}],241:[function(require,module,exports){
+},{"jquery":4,"react/addons":62}],242:[function(require,module,exports){
 var React = require('react/addons');
 
 var User = require('./User.jsx');
@@ -34391,7 +34411,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./User.jsx":240,"react/addons":62}],242:[function(require,module,exports){
+},{"./User.jsx":241,"react/addons":62}],243:[function(require,module,exports){
 /* globals jQuery */
 
 (function($) {
@@ -34619,7 +34639,7 @@ module.exports = React.createClass({displayName: "exports",
 
 })(jQuery);
 
-},{}],243:[function(require,module,exports){
+},{}],244:[function(require,module,exports){
 /* Copyright 2014+, Federico Zivolo, LICENSE at https://github.com/FezVrasta/bootstrap-material-design/blob/master/LICENSE.md */
 /* globals jQuery, navigator */
 
@@ -34945,7 +34965,7 @@ module.exports = React.createClass({displayName: "exports",
 
 })(jQuery, window, document);
 
-},{}],244:[function(require,module,exports){
+},{}],245:[function(require,module,exports){
 /*!
  * Bootstrap v3.3.4 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -37264,7 +37284,7 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-},{}],245:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 /**
 *example how to use
 $(document).ready(function() {
@@ -37677,7 +37697,7 @@ DonutSector.prototype.isLargeArc = function(radians) {
     return radians >= Math.PI ? ' 1 ' : ' 0 ';
 }
 
-},{}],246:[function(require,module,exports){
+},{}],247:[function(require,module,exports){
  /*
  * # Semantic UI - 2.0.0
  * https://github.com/Semantic-Org/Semantic-UI
