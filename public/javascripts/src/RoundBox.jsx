@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var request = require('browser-request');
-
 var RoundItems = require('./RoundItems.jsx');
 var ItemsChart = require('./ItemsChart.jsx');
 
@@ -42,7 +41,7 @@ module.exports = React.createClass({
       for(i = 0; i < players.length; i++) {
         itemChartData.push({
           value: players[i].total_item_value,
-          label: players[i].personaname,
+          label: players[i].personaname + " deposited " + players[i].items.length + " skin worth ",
           color: chartColors[i],
           highlight: chartColors[i+1]
         });
@@ -75,8 +74,8 @@ module.exports = React.createClass({
   render: function () {
     return (
       <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
+        <h1 className="ui header">Round # {this.state.roundId}</h1>
         <div className="ui grid">
-          <h1 className="ui header">Round # {this.state.roundId}</h1>
           <div className="sixteen wide column">
             <RoundItems items={this.state.allItems}/>
           </div>

@@ -1,32 +1,6 @@
 extends layout
 
 block content
-  nav.navbar.navbar-default#nav
-    .container-fluid
-      .navbar-header
-        button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1")
-          span.sr-only Toggle Navigation
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-        a.navbar-brand#brand(href="/")
-          |CS:GO Website
-      .collapse.navbar-collapse#bs-example-navbar-collapse-1
-        ul.nav.navbar-nav.navbar-right
-          li.nav-link: a(href="#") Home
-          li.nav-link: a(href="#") About
-          li.nav-link: a(href="") Deposit
-          if !user
-            li.nav-link
-              a#steam(href="/auth/steam")
-                i.fa.fa-steam
-                |Sign in through Steam
-          else
-            li.nav-link
-              a#steam(target = "_blank" href="https://steamcommunity.com/tradeoffer/new/?partner=273281604&token=pkDxy0cw")
-                img(src="#{user.photos[0].value}")
-                |#{user.displayName}
-
   #main
 
   if user

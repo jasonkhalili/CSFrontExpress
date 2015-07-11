@@ -4,6 +4,7 @@ var PlayersBox = require('./PlayersBox.jsx');
 var chartOptions = {
   responsive: true,
   scaleIntegersOnly: false,
+  tooltipTemplate: "<%if (label){%><%=label%> $<%}%><%= value %>",
 };
 
 var chartColors = [
