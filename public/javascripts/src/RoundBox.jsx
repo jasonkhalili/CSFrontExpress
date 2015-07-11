@@ -7,7 +7,28 @@ var ItemsChart = require('./ItemsChart.jsx');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-var Button = require('react-semantify').Button;
+var chartColors = [
+  "#393b79",
+  "#5254a3",
+  "#6b6ecf",
+  "#9c9ede",
+  "#637939",
+  "#8ca252",
+  "#b5cf6b",
+  "#cedb9c",
+  "#8c6d31",
+  "#bd9e39",
+  "#e7ba52",
+  "#e7cb94",
+  "#843c39",
+  "#ad494a",
+  "#d6616b",
+  "#e7969c",
+  "#7b4173",
+  "#a55194",
+  "#ce6dbd",
+  "#de9ed6"
+];
 
 module.exports = React.createClass({
   loadCurrentRoundFromServer: function () {
@@ -22,7 +43,9 @@ module.exports = React.createClass({
       for(i = 0; i < players.length; i++) {
         itemChartData.push({
           value: players[i].total_item_value,
-          label: players[i].personaname + " deposited " + players[i].items.length + " skins"
+          label: players[i].personaname + " deposited " + players[i].items.length + " skins\n worth $",
+          color: chartColors[i],
+          highlight: chartColors[i+1]
         });
         for(j = 0; j < players[i].items.length; j++) {
           allItems.push(players[i].items[j]);

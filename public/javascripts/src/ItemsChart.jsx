@@ -1,10 +1,15 @@
 var React = require('react/addons');
 
+var chartOptions = {
+  responsive: true,
+  scaleIntegersOnly: false
+};
+
 module.exports = React.createClass({
   renderChart: function(data) {
     this.data = [];
     var ctx = document.getElementById("myChart").getContext("2d");
-    this.myDoughnutChart = new Chart(ctx).Doughnut(data);
+    this.myDoughnutChart = new Chart(ctx).Doughnut(data,chartOptions);
   },
   updateChart: function(data) {
     this.myDoughnutChart.addData(data);
