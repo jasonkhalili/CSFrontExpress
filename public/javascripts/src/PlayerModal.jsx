@@ -23,14 +23,14 @@ module.exports = React.createClass({
             <div className="ui items">
               {this.props.player.items.map(function(item) {
                 var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
-                var nameStyle = {color: "#" + item.name_color};
+                var imageStyle = {borderBottom: "4px solid #" + item.name_color};
                 return (
                   <div className="item">
                     <div className="image">
-                      <img className="bordered" src={itemURL}/>
+                      <img style={imageStyle} src={itemURL}/>
                     </div>
                     <div className="content">
-                      <div className="header" style={nameStyle}>
+                      <div className="header">
                         {item.name}
                       </div>
                     </div>

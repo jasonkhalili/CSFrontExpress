@@ -34060,10 +34060,17 @@ module.exports = React.createClass({displayName: "exports",
     var item=this.props.item;
     var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
     var itemPrice = item.median_price;
+    var cardStyle = {borderBottom: "4px solid #" + item.name_color};
     return (
-      React.createElement("a", {className: "ui red card", "data-content": item.name}, 
-        React.createElement("div", {className: "ui image"}, 
-          React.createElement("img", {src: itemURL}), React.createElement("p", null, itemPrice)
+      React.createElement("a", {className: "ui card", "data-content": item.name}, 
+        React.createElement("div", {className: "ui image", style: cardStyle}, 
+          React.createElement("img", {src: itemURL})
+        ), 
+        React.createElement("div", {className: "content"}, 
+          React.createElement("div", {className: "center aligned"}, 
+            item.name, React.createElement("br", null), 
+            "$", itemPrice
+          )
         )
       )
     );
@@ -34117,12 +34124,12 @@ module.exports = React.createClass({displayName: "exports",
   },
   handleClick: function(click) {
     var activePoints = this.myDoughnutChart.getSegmentsAtEvent(click);
-    console.log(activePoints[0].fillColor);
     var playerIndex = chartColors.indexOf(activePoints[0].fillColor)-1;
     var modalToShow = '.ui.modal.' + playerIndex;
-    console.log(modalToShow);
     $(modalToShow)
-      .transition('horizontal flip')
+      .modal({
+        transition: 'horizontal flip'
+      })
       .modal('show');
   },
   componentDidUpdate: function(prevProps) {
@@ -34170,14 +34177,14 @@ module.exports = React.createClass({displayName: "exports",
             React.createElement("div", {className: "ui items"}, 
               this.props.player.items.map(function(item) {
                 var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
-                var nameStyle = {color: "#" + item.name_color};
+                var imageStyle = {borderBottom: "4px solid #" + item.name_color};
                 return (
                   React.createElement("div", {className: "item"}, 
                     React.createElement("div", {className: "image"}, 
-                      React.createElement("img", {className: "bordered", src: itemURL})
+                      React.createElement("img", {style: imageStyle, src: itemURL})
                     ), 
                     React.createElement("div", {className: "content"}, 
-                      React.createElement("div", {className: "header", style: nameStyle}, 
+                      React.createElement("div", {className: "header"}, 
                         item.name
                       )
                     )

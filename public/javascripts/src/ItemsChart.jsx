@@ -44,12 +44,12 @@ module.exports = React.createClass({
   },
   handleClick: function(click) {
     var activePoints = this.myDoughnutChart.getSegmentsAtEvent(click);
-    console.log(activePoints[0].fillColor);
     var playerIndex = chartColors.indexOf(activePoints[0].fillColor)-1;
     var modalToShow = '.ui.modal.' + playerIndex;
-    console.log(modalToShow);
     $(modalToShow)
-      .transition('horizontal flip')
+      .modal({
+        transition: 'horizontal flip'
+      })
       .modal('show');
   },
   componentDidUpdate: function(prevProps) {

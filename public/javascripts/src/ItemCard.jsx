@@ -9,10 +9,17 @@ module.exports = React.createClass({
     var item=this.props.item;
     var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
     var itemPrice = item.median_price;
+    var cardStyle = {borderBottom: "4px solid #" + item.name_color};
     return (
-      <a className="ui red card" data-content={item.name}>
-        <div className="ui image">
-          <img src={itemURL}></img><p>{itemPrice}</p>
+      <a className="ui card" data-content={item.name}>
+        <div className="ui image" style={cardStyle}>
+          <img src={itemURL}/>
+        </div>
+        <div className="content">
+          <div className="center aligned">
+            {item.name}<br/>
+            ${itemPrice}
+          </div>
         </div>
       </a>
     );
