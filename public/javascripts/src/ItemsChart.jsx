@@ -8,26 +8,26 @@ var chartOptions = {
 };
 
 var chartColors = [
-  "#393b79",
-  "#5254a3",
-  "#6b6ecf",
-  "#9c9ede",
-  "#637939",
-  "#8ca252",
-  "#b5cf6b",
-  "#cedb9c",
-  "#8c6d31",
-  "#bd9e39",
-  "#e7ba52",
-  "#e7cb94",
-  "#843c39",
-  "#ad494a",
-  "#d6616b",
-  "#e7969c",
-  "#7b4173",
-  "#a55194",
-  "#ce6dbd",
-  "#de9ed6"
+  '#3182bd',
+  '#6baed6',
+  '#9ecae1',
+  '#c6dbef',
+  '#e6550d',
+  '#fd8d3c',
+  '#fdae6b',
+  '#fdd0a2',
+  '#31a354',
+  '#74c476',
+  '#a1d99b',
+  '#c7e9c0',
+  '#756bb1',
+  '#9e9ac8',
+  '#bcbddc',
+  '#dadaeb',
+  '#636363',
+  '#969696',
+  '#bdbdbd',
+  '#d9d9d9'
 ];
 
 module.exports = React.createClass({
@@ -44,7 +44,7 @@ module.exports = React.createClass({
   },
   handleClick: function(click) {
     var activePoints = this.myDoughnutChart.getSegmentsAtEvent(click);
-    var playerIndex = chartColors.indexOf(activePoints[0].fillColor)-1;
+    var playerIndex = chartColors.indexOf(activePoints[0].fillColor);
     var modalToShow = '.ui.modal.' + playerIndex;
     $(modalToShow)
       .modal({
@@ -63,7 +63,6 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div className="itemsChart">
-        <p>ItemsChart</p>
         <canvas id="myChart" width="400" height="400" onClick={this.handleClick}></canvas>
         <PlayersBox players={this.props.players}/>
       </div>

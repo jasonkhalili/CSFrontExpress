@@ -10,16 +10,11 @@ module.exports = React.createClass({
     return (
       <Modal className={className} init={false}>
         <div className="header">
+          <img className="ui middle aligned avatar image" src={this.props.player.avatar}/>
           {this.props.player.personaname}
         </div>
         <div className="content">
-          <div className="ui image medium">
-            <img src={this.props.player.avatarfull}/>
-          </div>
           <div className="description">
-            <div className="ui header">
-              Deposit Info:
-            </div>
             <div className="ui items">
               {this.props.player.items.map(function(item) {
                 var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
@@ -29,9 +24,12 @@ module.exports = React.createClass({
                     <div className="image">
                       <img style={imageStyle} src={itemURL}/>
                     </div>
-                    <div className="content">
+                    <div className="content middle aligned">
                       <div className="header">
                         {item.name}
+                      </div>
+                      <div className="description">
+                        Median price at time of deposit: ${item.median_price}
                       </div>
                     </div>
                   </div>
@@ -39,7 +37,6 @@ module.exports = React.createClass({
               })}
             </div>
           </div>
-          <p>{this.props.player.total_item_value}</p>
         </div>
       </Modal>
     );

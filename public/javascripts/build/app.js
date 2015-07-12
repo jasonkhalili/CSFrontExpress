@@ -34085,26 +34085,26 @@ var chartOptions = {
 };
 
 var chartColors = [
-  "#393b79",
-  "#5254a3",
-  "#6b6ecf",
-  "#9c9ede",
-  "#637939",
-  "#8ca252",
-  "#b5cf6b",
-  "#cedb9c",
-  "#8c6d31",
-  "#bd9e39",
-  "#e7ba52",
-  "#e7cb94",
-  "#843c39",
-  "#ad494a",
-  "#d6616b",
-  "#e7969c",
-  "#7b4173",
-  "#a55194",
-  "#ce6dbd",
-  "#de9ed6"
+  '#3182bd',
+  '#6baed6',
+  '#9ecae1',
+  '#c6dbef',
+  '#e6550d',
+  '#fd8d3c',
+  '#fdae6b',
+  '#fdd0a2',
+  '#31a354',
+  '#74c476',
+  '#a1d99b',
+  '#c7e9c0',
+  '#756bb1',
+  '#9e9ac8',
+  '#bcbddc',
+  '#dadaeb',
+  '#636363',
+  '#969696',
+  '#bdbdbd',
+  '#d9d9d9'
 ];
 
 module.exports = React.createClass({displayName: "exports",
@@ -34121,7 +34121,7 @@ module.exports = React.createClass({displayName: "exports",
   },
   handleClick: function(click) {
     var activePoints = this.myDoughnutChart.getSegmentsAtEvent(click);
-    var playerIndex = chartColors.indexOf(activePoints[0].fillColor)-1;
+    var playerIndex = chartColors.indexOf(activePoints[0].fillColor);
     var modalToShow = '.ui.modal.' + playerIndex;
     $(modalToShow)
       .modal({
@@ -34140,7 +34140,6 @@ module.exports = React.createClass({displayName: "exports",
   render: function() {
     return (
       React.createElement("div", {className: "itemsChart"}, 
-        React.createElement("p", null, "ItemsChart"), 
         React.createElement("canvas", {id: "myChart", width: "400", height: "400", onClick: this.handleClick}), 
         React.createElement(PlayersBox, {players: this.props.players})
       )
@@ -34161,16 +34160,11 @@ module.exports = React.createClass({displayName: "exports",
     return (
       React.createElement(Modal, {className: className, init: false}, 
         React.createElement("div", {className: "header"}, 
+          React.createElement("img", {className: "ui middle aligned avatar image", src: this.props.player.avatar}), 
           this.props.player.personaname
         ), 
         React.createElement("div", {className: "content"}, 
-          React.createElement("div", {className: "ui image medium"}, 
-            React.createElement("img", {src: this.props.player.avatarfull})
-          ), 
           React.createElement("div", {className: "description"}, 
-            React.createElement("div", {className: "ui header"}, 
-              "Deposit Info:"
-            ), 
             React.createElement("div", {className: "ui items"}, 
               this.props.player.items.map(function(item) {
                 var itemURL = "http://steamcommunity-a.akamaihd.net/economy/image/"+item.icon_url;
@@ -34180,17 +34174,19 @@ module.exports = React.createClass({displayName: "exports",
                     React.createElement("div", {className: "image"}, 
                       React.createElement("img", {style: imageStyle, src: itemURL})
                     ), 
-                    React.createElement("div", {className: "content"}, 
+                    React.createElement("div", {className: "content middle aligned"}, 
                       React.createElement("div", {className: "header"}, 
                         item.name
+                      ), 
+                      React.createElement("div", {className: "description"}, 
+                        "Median price at time of deposit: $", item.median_price
                       )
                     )
                   )
                 );
               })
             )
-          ), 
-          React.createElement("p", null, this.props.player.total_item_value)
+          )
         )
       )
     );
@@ -34227,27 +34223,33 @@ var ItemsChart = require('./ItemsChart.jsx');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
+
+function LightenDarkenColor(col,amt) {
+    col = parseInt(col,16);
+    return (((col & 0x0000FF) + amt) | ((((col>> 8) & 0x00FF) + amt) << 8) | (((col >> 16) + amt) << 16)).toString(16);
+}
+
 var chartColors = [
-  "#393b79",
-  "#5254a3",
-  "#6b6ecf",
-  "#9c9ede",
-  "#637939",
-  "#8ca252",
-  "#b5cf6b",
-  "#cedb9c",
-  "#8c6d31",
-  "#bd9e39",
-  "#e7ba52",
-  "#e7cb94",
-  "#843c39",
-  "#ad494a",
-  "#d6616b",
-  "#e7969c",
-  "#7b4173",
-  "#a55194",
-  "#ce6dbd",
-  "#de9ed6"
+  '#3182bd',
+  '#6baed6',
+  '#9ecae1',
+  '#c6dbef',
+  '#e6550d',
+  '#fd8d3c',
+  '#fdae6b',
+  '#fdd0a2',
+  '#31a354',
+  '#74c476',
+  '#a1d99b',
+  '#c7e9c0',
+  '#756bb1',
+  '#9e9ac8',
+  '#bcbddc',
+  '#dadaeb',
+  '#636363',
+  '#969696',
+  '#bdbdbd',
+  '#d9d9d9'
 ];
 
 module.exports = React.createClass({displayName: "exports",
@@ -34264,8 +34266,7 @@ module.exports = React.createClass({displayName: "exports",
         itemChartData.push({
           value: players[i].total_item_value,
           label: players[i].personaname + " deposited " + players[i].items.length + " skin worth ",
-          color: chartColors[i],
-          highlight: chartColors[i+1]
+          color: chartColors[i]
         });
         for(j = 0; j < players[i].items.length; j++) {
           allItems.push(players[i].items[j]);
