@@ -11,13 +11,10 @@ module.exports = React.createClass({
     var itemPrice = item.median_price;
     var cardStyle = {borderBottom: "4px solid #" + item.name_color};
     return (
-      <a className="ui card" data-content={item.name}>
-        <div className="ui image" style={cardStyle}>
+      <a className="ui card" data-content={item.name} style={cardStyle}>
+        <div className="ui image content">
           <img src={itemURL}/>
-        </div>
-        <div className="content">
           <div className="center aligned">
-            {item.name}<br/>
             ${itemPrice}
           </div>
         </div>

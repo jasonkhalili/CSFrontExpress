@@ -34062,13 +34062,10 @@ module.exports = React.createClass({displayName: "exports",
     var itemPrice = item.median_price;
     var cardStyle = {borderBottom: "4px solid #" + item.name_color};
     return (
-      React.createElement("a", {className: "ui card", "data-content": item.name}, 
-        React.createElement("div", {className: "ui image", style: cardStyle}, 
-          React.createElement("img", {src: itemURL})
-        ), 
-        React.createElement("div", {className: "content"}, 
+      React.createElement("a", {className: "ui card", "data-content": item.name, style: cardStyle}, 
+        React.createElement("div", {className: "ui image content"}, 
+          React.createElement("img", {src: itemURL}), 
           React.createElement("div", {className: "center aligned"}, 
-            item.name, React.createElement("br", null), 
             "$", itemPrice
           )
         )
