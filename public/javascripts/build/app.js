@@ -8,16 +8,13 @@ var React = require('react/addons');
 
 // React Components
 var RoundBox = require('./RoundBox.jsx');
-var PlayersBox = require('./PlayersBox.jsx');
-var UserBox = require('./UserBox.jsx');
-var InventoryBox = require('./InventoryBox.jsx');
 
 React.render(
   React.createElement(RoundBox, null),
   document.getElementById('main')
 );
 
-},{"../../libraries/semantic-ui/dist/semantic.js":243,"./InventoryBox.jsx":234,"./PlayersBox.jsx":238,"./RoundBox.jsx":239,"./UserBox.jsx":242,"browser-request":2,"jquery":4,"react/addons":62}],2:[function(require,module,exports){
+},{"../../libraries/semantic-ui/dist/semantic.js":240,"./RoundBox.jsx":238,"browser-request":2,"jquery":4,"react/addons":62}],2:[function(require,module,exports){
 // Browser Request
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -34053,41 +34050,6 @@ module.exports = warning;
 }).call(this,require('_process'))
 },{"./emptyFunction":191,"_process":3}],234:[function(require,module,exports){
 var React = require('react/addons');
-var $ = jQuery = require('jquery');
-
-module.exports =  React.createClass({displayName: "exports",
-  loadInventoryFromServer: function() {
-    console.log(this.props.steam_id);
-    console.log("In GET");
-    $.ajax({
-      url: 'http://localhost:3000/api/inventory/' + this.props.steam_id,
-      dataType: 'json',
-      type: 'GET',
-      cache: false,
-      success: function(data) {
-        this.setState({data: data});
-      }.bind(this)
-    });
-  },
-  getInitialState: function() {
-    return {data: []};
-  },
-  componentDidMount: function() {
-    this.loadInventoryFromServer();
-    console.log("InventoryBox did mount");
-  },
-  render: function() {
-    return (
-      React.createElement("div", {className: "inventoryBox"}, 
-        React.createElement("p", null, this.state.data), 
-        React.createElement("p", null, "Inventory Box Test")
-      )
-    );
-  }
-});
-
-},{"jquery":4,"react/addons":62}],235:[function(require,module,exports){
-var React = require('react/addons');
 
 module.exports = React.createClass({displayName: "exports",
   componentDidMount: function() {
@@ -34108,7 +34070,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react/addons":62}],236:[function(require,module,exports){
+},{"react/addons":62}],235:[function(require,module,exports){
 var React = require('react/addons');
 var PlayersBox = require('./PlayersBox.jsx');
 
@@ -34182,7 +34144,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./PlayersBox.jsx":238,"react/addons":62}],237:[function(require,module,exports){
+},{"./PlayersBox.jsx":237,"react/addons":62}],236:[function(require,module,exports){
 var React = require('react/addons');
 var Modal = require('react-semantify').Modal;
 
@@ -34231,7 +34193,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react-semantify":35,"react/addons":62}],238:[function(require,module,exports){
+},{"react-semantify":35,"react/addons":62}],237:[function(require,module,exports){
 var React = require('react/addons');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var PlayerModal = require('./PlayerModal.jsx');
@@ -34253,7 +34215,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./PlayerModal.jsx":237,"react/addons":62}],239:[function(require,module,exports){
+},{"./PlayerModal.jsx":236,"react/addons":62}],238:[function(require,module,exports){
 var React = require('react/addons');
 var request = require('browser-request');
 var RoundItems = require('./RoundItems.jsx');
@@ -34340,7 +34302,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./ItemsChart.jsx":236,"./RoundItems.jsx":240,"browser-request":2,"react/addons":62}],240:[function(require,module,exports){
+},{"./ItemsChart.jsx":235,"./RoundItems.jsx":239,"browser-request":2,"react/addons":62}],239:[function(require,module,exports){
 var React = require('react/addons');
 var ItemCard = require('./ItemCard.jsx');
 
@@ -34358,74 +34320,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./ItemCard.jsx":235,"react/addons":62}],241:[function(require,module,exports){
-var React = require('react/addons');
-var $ = jQuery = require('jquery');
-
-module.exports =  React.createClass({displayName: "exports",
-  loadUserFromServer: function() {
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      type: 'GET',
-      cache: false,
-      success: function(data) {
-        if(!data.length){
-          console.log("in if");
-          this.handleAddUser();
-        }
-        this.setState({data: data});
-      }.bind(this)
-    });
-  },
-  handleAddUser: function() {
-    console.log("in add");
-    var today = new Date();
-    var userPost =
-    {"steam_id": user_id,
-      "join_date": today.toDateString(),
-      "game_history": {
-        "test": "test1"
-      }};
-      $.ajax({
-        url: 'http://localhost:3000/api/users',
-        dataType: 'json',
-        type: 'POST',
-        data: userPost,
-      });
-    },
-    getInitialState: function() {
-      return {data: []};
-    },
-    componentDidMount: function() {
-      setInterval(this.loadUserFromServer, this.props.pollInterval);
-    },
-    render: function() {
-      return (
-        React.createElement("div", {className: "User"}, 
-          React.createElement("p", null, this.state.data)
-        )
-      );
-    }
-  });
-
-},{"jquery":4,"react/addons":62}],242:[function(require,module,exports){
-var React = require('react/addons');
-
-var User = require('./User.jsx');
-
-module.exports = React.createClass({displayName: "exports",
-  render: function () {
-    var userURL = 'http://localhost:3000/api/users/' + String(user_id);
-    return (
-      React.createElement("div", {className: "userBox"}, 
-        React.createElement(User, {pollInterval: 2000, url: userURL})
-      )
-    );
-  }
-});
-
-},{"./User.jsx":241,"react/addons":62}],243:[function(require,module,exports){
+},{"./ItemCard.jsx":234,"react/addons":62}],240:[function(require,module,exports){
  /*
  * # Semantic UI - 2.0.0
  * https://github.com/Semantic-Org/Semantic-UI

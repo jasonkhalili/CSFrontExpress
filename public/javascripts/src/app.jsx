@@ -7,9 +7,6 @@ var React = require('react/addons');
 
 // React Components
 var RoundBox = require('./RoundBox.jsx');
-var PlayersBox = require('./PlayersBox.jsx');
-var UserBox = require('./UserBox.jsx');
-var InventoryBox = require('./InventoryBox.jsx');
 
 React.render(
   <RoundBox />,
